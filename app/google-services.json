@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "671730461795",
+    "firebase_url": "https://teacher-parent-messaging-app.firebaseio.com",
+    "project_id": "teacher-parent-messaging-app",
+    "storage_bucket": "teacher-parent-messaging-app.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:671730461795:android:57b5e4bd7dd6d28dd25c56",
+        "android_client_info": {
+          "package_name": "com.scoll.teacher_parentmessagingapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "671730461795-rah26jbcd7u7ncfbfd37jkasv3pksta3.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB_dMLs0HHIqtwzmsa7K5HCvkGWdlV2d-8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "671730461795-rah26jbcd7u7ncfbfd37jkasv3pksta3.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
