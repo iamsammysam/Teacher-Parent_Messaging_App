@@ -25,7 +25,7 @@ public class Main2Activity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main2);
 
-        // findUser onClick listener
+        // findUser contacts onClick listener
         Button mFindUser = findViewById(R.id.findUser);
         mFindUser.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -56,6 +56,7 @@ public class Main2Activity extends AppCompatActivity {
         getPermissions();
     }
 
+    // getting permission to read contact list from phone
     @RequiresApi(api = Build.VERSION_CODES.M)
     private void getPermissions() {
         requestPermissions(new String[] {

@@ -21,7 +21,14 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.PhoneAuthCredential;
 import com.google.firebase.auth.PhoneAuthProvider;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 public class MainActivity extends AppCompatActivity {
@@ -108,8 +115,37 @@ public class MainActivity extends AppCompatActivity {
         FirebaseAuth.getInstance().signInWithCredential(phoneAuthCredential).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
-                if (task.isSuccessful())
-                    userIsLoggedIn();
+                if (task.isSuccessful()){
+                    // gets all user information from the sign in
+                    final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+
+                    if(user != null){
+                        // points to fireBase database inside "user"
+                        final DatabaseReference mUserDB = FirebaseDatabase.getInstance().getReference().child("user").child(user.getUid());
+
+                        // listener fetches the data once from the DB
+                        mUserDB.addListenerForSingleValueEvent(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                                // checking if user is on the DB
+                                if(!dataSnapshot.exists()){
+                                    Map<String, Object>userMap = new HashMap<>();
+                                    userMap.put("phoneNumber", user.getPhoneNumber());
+                                    userMap.put("name", user.getPhoneNumber());
+
+                                    // sends the data off to the DB inside the user
+                                    mUserDB.updateChildren(userMap);
+                                }
+                                userIsLoggedIn();
+                            }
+
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError databaseError) { }
+                        });
+                    }
+
+                }
             }
         });
     }
