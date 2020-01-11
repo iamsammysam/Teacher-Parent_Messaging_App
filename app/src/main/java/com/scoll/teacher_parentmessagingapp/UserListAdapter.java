@@ -1,3 +1,5 @@
+// where we manage and display the user list (same as user collection)
+
 package com.scoll.teacher_parentmessagingapp;
 
 import android.view.LayoutInflater;
@@ -14,7 +16,7 @@ import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
 
-// viewHolder
+// implementing the viewHolder (gets the data from the xml)
 public class UserListAdapter extends RecyclerView.Adapter<UserListAdapter.UserListViewHolder> {
 
     // passing the variable
@@ -28,6 +30,7 @@ public class UserListAdapter extends RecyclerView.Adapter<UserListAdapter.UserLi
     @NonNull
     @Override
     public UserListViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+          // making the call for the item_user
           View layoutView = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_user, null, false);
           RecyclerView.LayoutParams lp = new RecyclerView.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
           layoutView.setLayoutParams(lp);
@@ -39,7 +42,7 @@ public class UserListAdapter extends RecyclerView.Adapter<UserListAdapter.UserLi
 
     @Override
     public void onBindViewHolder(@NonNull UserListViewHolder holder, int position) {
-        // grabs the position we need on the arrayList e displays it
+        // grabs the position we need on the array userList e displays it
         holder.mName.setText(userList.get(position).getName());
         holder.mPhoneNumber.setText(userList.get(position).getPhoneNumber());
 

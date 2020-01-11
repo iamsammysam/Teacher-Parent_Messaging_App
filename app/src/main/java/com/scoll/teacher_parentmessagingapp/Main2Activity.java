@@ -25,10 +25,8 @@ public class Main2Activity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main2);
 
-        Button mLogout = findViewById(R.id.logout);
+        // findUser contacts onClick listener
         Button mFindUser = findViewById(R.id.findUser);
-
-        // findUser onClick listener
         mFindUser.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -37,29 +35,28 @@ public class Main2Activity extends AppCompatActivity {
         });
 
         // logout onClick listener
+        Button mLogout = findViewById(R.id.logout);
         mLogout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // fireBase documentation
+                // fireBase documentation - user is logged out
                 FirebaseAuth.getInstance().signOut();
 
                 // making user go to a different page after logout
                 Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-
-                // how??? Toast.makeText(this, "You have been signed out.", Toast.LENGTH_LONG).show();
 
                 // clears user access
                 // intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 
                 startActivity(intent);
                 finish();
-                return;
             }
         });
 
         getPermissions();
     }
 
+    // getting permission to read contact list from phone
     @RequiresApi(api = Build.VERSION_CODES.M)
     private void getPermissions() {
         requestPermissions(new String[] {
