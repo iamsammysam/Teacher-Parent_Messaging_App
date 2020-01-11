@@ -64,7 +64,7 @@ public class Main3Activity extends AppCompatActivity {
             phoneNumber = phoneNumber.replace("(", "");
             phoneNumber = phoneNumber.replace(")", "");
 
-            UserObject mContact = new UserObject(name, phoneNumber);
+            UserObject mContact = new UserObject("",name, phoneNumber);
             contactList.add(mContact);
             getUserDetails(mContact);
         }
@@ -75,7 +75,6 @@ public class Main3Activity extends AppCompatActivity {
         DatabaseReference mUserDB = FirebaseDatabase.getInstance().getReference().child("user");
 
         // fetching data from DB
-
         Query query = mUserDB.orderByChild("phoneNumber").equalTo(mContact.getPhoneNumber());
         query.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -94,7 +93,7 @@ public class Main3Activity extends AppCompatActivity {
                             name = childSnapshot.child("name").getValue().toString();
 
 
-                        UserObject mUser = new UserObject(name, phoneNumber);
+                        UserObject mUser = new UserObject(childSnapshot.getKey(), name, phoneNumber);
                         // setting the username to name on phone contact list
                         if (name.equals(phoneNumber))
                             for (UserObject mContactIterator : contactList) {
