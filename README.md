@@ -7,7 +7,7 @@ I noticed (through my husband’s personal experience as an educador) that in so
 
 The idea of creating a Teacher/Parent Communication App came to reach effectively those low income/marginalized communities and strengthen the relationship between Teacher/Parents to have a direct impact on young children’s educational, social and emotional development.
 
-## MVP Feature Set
+### MVP Feature Set
 
 1.  Instant messaging feature
     - User authorization via phone number or QRcode.
@@ -26,7 +26,7 @@ The idea of creating a Teacher/Parent Communication App came to reach effectivel
 2.  Media file transmission.
 3.  Voice Messaging with translation.
 
-## Draft Technology Choices
+### Technology Choices
 
 - Android Studio
 - Java (frontend)
