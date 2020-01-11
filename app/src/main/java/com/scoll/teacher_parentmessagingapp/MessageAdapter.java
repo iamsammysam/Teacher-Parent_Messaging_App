@@ -1,0 +1,65 @@
+// where we manage and display messages (same as message collection)
+
+package com.scoll.teacher_parentmessagingapp;
+
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.LinearLayout;
+import android.widget.TextView;
+
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
+
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.FirebaseDatabase;
+
+import java.util.ArrayList;
+import java.util.List;
+
+// implementing the viewHolder (gets the data from the xml)
+public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageListViewHolder> {
+
+    // passing the variable
+    ArrayList<MessageObject> messageList;
+
+    // constructor
+    public MessageAdapter(ArrayList<MessageObject> messageList){
+        this.messageList = messageList;
+    }
+
+    @NonNull
+    @Override
+    public MessageListViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        // making the call for the item_chat
+        View layoutView = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_message, null, false);
+        RecyclerView.LayoutParams lp = new RecyclerView.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        layoutView.setLayoutParams(lp);
+
+        MessageListViewHolder rcv = new MessageListViewHolder(layoutView);
+        // viewHolder variable
+        return rcv;
+    }
+
+    @Override
+    public void onBindViewHolder(@NonNull MessageListViewHolder holder, final int position) {
+        holder.mMessage.setText(messageList.get(position).getMessage());
+        holder.mSender.setText(messageList.get(position).getSenderId());
+    }
+
+    @Override
+    public int getItemCount() {
+        return (messageList == null) ? 0 : messageList.size();
+    }
+
+    class MessageListViewHolder extends RecyclerView.ViewHolder{
+        TextView mMessage,
+                 mSender;
+        LinearLayout mItemLayout;
+        MessageListViewHolder(View view){
+            super(view);
+            mMessage = view.findViewById(R.id.message);
+            mSender = view.findViewById(R.id.sender);
+        }
+    }
+}

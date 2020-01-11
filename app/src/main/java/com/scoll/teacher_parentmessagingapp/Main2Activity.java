@@ -36,7 +36,7 @@ public class Main2Activity extends AppCompatActivity {
     private RecyclerView.LayoutManager mChatListLayoutManager;
 
     ArrayList<ChatObject> chatList;
-    ArrayList<String> recordings = new ArrayList<String>();
+//    ArrayList<String> recordings = new ArrayList<String>();
 
     @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
@@ -55,7 +55,9 @@ public class Main2Activity extends AppCompatActivity {
 
         // logout onClick listener
         Button mLogout = findViewById(R.id.logout);
+
         mLogout.setOnClickListener(new View.OnClickListener() {
+
             @Override
             public void onClick(View v) {
                 // fireBase documentation - user is logged out
@@ -67,6 +69,8 @@ public class Main2Activity extends AppCompatActivity {
                 // clears user access
                 // intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 
+
+                // Toast.makeText(this, "Logging out... See you next time!", Toast.LENGTH_LONG).show();
                 startActivity(intent);
                 finish();
             }
