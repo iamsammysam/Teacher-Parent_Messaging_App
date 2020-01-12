@@ -52,14 +52,16 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageL
         return (messageList == null) ? 0 : messageList.size();
     }
 
-    class MessageListViewHolder extends RecyclerView.ViewHolder{
-        TextView mMessage,
-                 mSender;
-        LinearLayout mItemLayout;
-        MessageListViewHolder(View view){
+    // class doesn't need to be public
+    public class MessageListViewHolder extends RecyclerView.ViewHolder{
+        public TextView mMessage, mSender;
+        public LinearLayout mItemLayout;
+
+        public MessageListViewHolder(View view){
             super(view);
             mMessage = view.findViewById(R.id.message);
             mSender = view.findViewById(R.id.sender);
+            mItemLayout = view.findViewById(R.id.itemLayout);
         }
     }
 }

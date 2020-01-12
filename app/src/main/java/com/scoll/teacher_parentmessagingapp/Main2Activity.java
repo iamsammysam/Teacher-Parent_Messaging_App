@@ -95,9 +95,9 @@ public class Main2Activity extends AppCompatActivity {
 
                     // loops through the chat ids
                     for (DataSnapshot childSnapshot : dataSnapshot.getChildren()){
+
                         // creating a chatObject
                         ChatObject mChat = new ChatObject(childSnapshot.getKey());
-
                         chatList.add(mChat);
                         mChatListAdapter.notifyDataSetChanged();
                     }

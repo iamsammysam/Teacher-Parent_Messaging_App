@@ -12,7 +12,7 @@ public class UserObject {
         this.phoneNumber = phoneNumber;
     }
 
-    // function that returns the variables to us as public
+    // (getters) functions that returns the variables
     public String getPhoneNumber() {return phoneNumber;}
     public String getName() {return name;}
     public String getUid() {return uid;}

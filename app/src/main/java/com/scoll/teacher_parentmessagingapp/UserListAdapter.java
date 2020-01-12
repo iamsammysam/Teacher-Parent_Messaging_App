@@ -68,6 +68,7 @@ public class UserListAdapter extends RecyclerView.Adapter<UserListAdapter.UserLi
     public class UserListViewHolder extends RecyclerView.ViewHolder{
         public TextView mName, mPhoneNumber;
         public LinearLayout mItemLayout;
+
         public UserListViewHolder(View view){
             super(view);
             mName = view.findViewById(R.id.name);

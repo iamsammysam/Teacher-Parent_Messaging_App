@@ -1,10 +1,9 @@
 package com.scoll.teacher_parentmessagingapp;
 
 public class MessageObject {
-    String messageId;
-    String senderId;
-    String message;
-
+    private String messageId;
+    private String senderId;
+    private String message;
 
     // constructor for the chatObject
     public MessageObject(String messageId, String senderId, String message){
@@ -13,7 +12,7 @@ public class MessageObject {
         this.message = message;
     }
 
-    // function that returns the variables as public (getters)
+    // (getters) functions that returns the variables
     public String getMessageId() {return messageId;}
     public String getSenderId() {return senderId;}
     public String getMessage() {return message;}

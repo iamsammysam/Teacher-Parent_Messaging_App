@@ -10,7 +10,7 @@ public class ChatObject {
 //        this.title = title;
     }
 
-    // function that returns the variables as public
+    // (getters) functions that returns the variables
     public String getChatId() {return chatId;}
 //    public String getTitle() {return title;}
 }

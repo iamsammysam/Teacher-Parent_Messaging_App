@@ -2,6 +2,8 @@
 
 package com.scoll.teacher_parentmessagingapp;
 
+import android.content.Intent;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -41,14 +43,21 @@ public class ChatListAdapter extends RecyclerView.Adapter<ChatListAdapter.ChatLi
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ChatListViewHolder holder, final int position) {
+    public void onBindViewHolder(@NonNull final ChatListViewHolder holder, final int position) {
         // grabs the position we need on the array chatList e displays it
         holder.mTitle.setText(chatList.get(position).getChatId());
 
-        // on click listener for chat
+        // on click listener for when user clicks on a chat, goes to messaging on ChatActivity
         holder.mItemLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Intent intent = new Intent(v.getContext(), ChatActivity.class);
+
+                // get a bundle of variables that we want to send with the intent above
+                Bundle bundle = new Bundle();
+                bundle.putString("chatID", chatList.get(holder.getAdapterPosition()).getChatId());
+                intent.putExtras(bundle);
+                v.getContext().startActivity(intent);
             }
         });
     }
