@@ -36,7 +36,6 @@ public class Main2Activity extends AppCompatActivity {
     private RecyclerView.LayoutManager mChatListLayoutManager;
 
     ArrayList<ChatObject> chatList;
-//    ArrayList<String> recordings = new ArrayList<String>();
 
     @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
@@ -76,6 +75,9 @@ public class Main2Activity extends AppCompatActivity {
             }
         });
 
+        //initializing chatList
+        chatList = new ArrayList<>();
+
         getPermissions();
         initializeRecyclerView();
         getUserChatList();
@@ -95,6 +97,7 @@ public class Main2Activity extends AppCompatActivity {
                     for (DataSnapshot childSnapshot : dataSnapshot.getChildren()){
                         // creating a chatObject
                         ChatObject mChat = new ChatObject(childSnapshot.getKey());
+
                         chatList.add(mChat);
                         mChatListAdapter.notifyDataSetChanged();
                     }
