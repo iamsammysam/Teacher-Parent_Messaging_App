@@ -159,7 +159,6 @@ public class MainActivity extends AppCompatActivity {
             startActivity(new Intent(getApplicationContext(), Main2Activity.class));
         } else {
             // user is not logged in
-            Toast.makeText(this, "Logging out... See you next time!", Toast.LENGTH_LONG).show();
         }
     }
 }

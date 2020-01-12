@@ -41,21 +41,23 @@ public class UserListAdapter extends RecyclerView.Adapter<UserListAdapter.UserLi
     }
 
     @Override
-    public void onBindViewHolder(@NonNull UserListViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull UserListViewHolder holder, final int position) {
         // grabs the position we need on the array userList e displays it
         holder.mName.setText(userList.get(position).getName());
         holder.mPhoneNumber.setText(userList.get(position).getPhoneNumber());
 
-////        holder.mItemLayout.setOnClickListener(new View.OnClickListener() {
-////            @Override
-////            public void onClick(View v) {
-//                // returns a unique ID that doesn't exist inside "chat" on the FirebaseDatabase
-////                String key =  FirebaseDatabase.getInstance().getReference().child("chat").push().getKey();
-//
-//                FirebaseDatabase.getInstance().getReference().child("user").child(FirebaseAuth.getInstance().getUid()).child("chat").child(key).setValue(true);
-//                FirebaseDatabase.getInstance().getReference().child("user").child(userList.get(position).getUid()).child("chat").child(key).setValue(true);
-//            }
-//        });
+        // on click listener for chat
+        holder.mItemLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+               // returns a unique ID that doesn't exist inside "chat" on the FireBaseDatabase
+                String key =  FirebaseDatabase.getInstance().getReference().child("chat").push().getKey();
+
+                // creates a chat inside user1 and user2 with the same ID
+                FirebaseDatabase.getInstance().getReference().child("user").child(FirebaseAuth.getInstance().getUid()).child("chat").child(key).setValue(true);
+                FirebaseDatabase.getInstance().getReference().child("user").child(userList.get(position).getUid()).child("chat").child(key).setValue(true);
+            }
+        });
     }
 
     @Override
@@ -66,6 +68,7 @@ public class UserListAdapter extends RecyclerView.Adapter<UserListAdapter.UserLi
     public class UserListViewHolder extends RecyclerView.ViewHolder{
         public TextView mName, mPhoneNumber;
         public LinearLayout mItemLayout;
+
         public UserListViewHolder(View view){
             super(view);
             mName = view.findViewById(R.id.name);
