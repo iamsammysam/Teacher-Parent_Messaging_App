@@ -103,6 +103,8 @@ public class Main3Activity extends AppCompatActivity {
                             }
 
                         userList.add(mUser);
+
+                        // updates mUserListAdapter and notifies that something changed
                         mUserListAdapter.notifyDataSetChanged();
                         return;
                     }
