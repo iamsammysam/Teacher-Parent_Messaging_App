@@ -31,7 +31,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
-public class MainActivity extends AppCompatActivity {
+public class LoginActivity extends AppCompatActivity {
 
     private EditText mPhoneNumber, mVerificationCode;
     private Button mSendCode;
@@ -155,7 +155,7 @@ public class MainActivity extends AppCompatActivity {
         FirebaseAuth auth = FirebaseAuth.getInstance();
         if (auth.getCurrentUser() != null){
             // user is logged in
-            Toast.makeText(this, "Successfully signed in. Welcome!", Toast.LENGTH_LONG).show();
+            // Toast.makeText(this, "Successfully signed in. Welcome!", Toast.LENGTH_LONG).show();
             startActivity(new Intent(getApplicationContext(), Main2Activity.class));
         } else {
             // user is not logged in
