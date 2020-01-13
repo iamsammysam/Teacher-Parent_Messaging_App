@@ -54,7 +54,6 @@ public class Main2Activity extends AppCompatActivity {
 
         // logout onClick listener
         Button mLogout = findViewById(R.id.logout);
-
         mLogout.setOnClickListener(new View.OnClickListener() {
 
             @Override
@@ -99,6 +98,8 @@ public class Main2Activity extends AppCompatActivity {
                         // creating a chatObject
                         ChatObject mChat = new ChatObject(childSnapshot.getKey());
                         chatList.add(mChat);
+
+                        // updates mChatListAdapter and notifies that something changed
                         mChatListAdapter.notifyDataSetChanged();
                     }
                 }
