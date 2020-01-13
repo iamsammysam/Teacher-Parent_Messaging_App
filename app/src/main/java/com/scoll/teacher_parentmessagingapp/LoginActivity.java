@@ -73,6 +73,7 @@ public class LoginActivity extends AppCompatActivity {
 
                 mVerificationId = verificationId;
                 // changes the name of the button SendCode
+                mVerificationCode.setVisibility(View.VISIBLE);
                 mSendCode.setText("Verify Code");
             }
 
@@ -155,10 +156,11 @@ public class LoginActivity extends AppCompatActivity {
         FirebaseAuth auth = FirebaseAuth.getInstance();
         if (auth.getCurrentUser() != null){
             // user is logged in
-            // Toast.makeText(this, "Successfully signed in. Welcome!", Toast.LENGTH_LONG).show();
             startActivity(new Intent(getApplicationContext(), Main2Activity.class));
+            Toast.makeText(this, "Successfully signed in. Welcome!", Toast.LENGTH_LONG).show();
         } else {
             // user is not logged in
+            Toast.makeText(this, "Please sign in to use this App.", Toast.LENGTH_LONG).show();
         }
     }
 }
