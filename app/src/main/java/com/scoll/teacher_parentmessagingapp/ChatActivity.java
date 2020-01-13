@@ -58,6 +58,29 @@ public class ChatActivity extends AppCompatActivity {
         getChatMessages();
     }
 
+    // sendMessage function
+
+    EditText mMessage;
+
+    private void sendMessage(){
+        // grabs the EditText
+        mMessage = findViewById(R.id.messageInput);
+
+        if(!mMessage.getText().toString().isEmpty()){
+            // getting the messageId variable from the ChatListAdapter
+            // database reference - goes into chat and chatId and pushes to create a new message
+            DatabaseReference newMessageDB = FirebaseDatabase.getInstance().getReference().child("chat").child(chatID).push();
+
+            Map newMessageMap = new HashMap<>();
+            newMessageMap.put("message", mMessage.getText().toString());
+            newMessageMap.put("creator", FirebaseAuth.getInstance().getUid());
+
+            newMessageDB.updateChildren(newMessageMap);
+        }
+        //clearing the editText field
+        mMessage.setText(null);
+    }
+
     // displaying messages from the FireBase DB
     private void getChatMessages() {
         FirebaseDatabase.getInstance().getReference().child("chat").child(chatID).addChildEventListener(new ChildEventListener() {
@@ -101,23 +124,6 @@ public class ChatActivity extends AppCompatActivity {
         });
     }
 
-    private void sendMessage(){
-        EditText mMessage = findViewById(R.id.message);
-
-        if(!mMessage.getText().toString().isEmpty()){
-            // getting the messageId variable from the ChatListAdapter
-            // database reference - goes into chat and chatId and pushes to create a new message
-            DatabaseReference newMessageDB = FirebaseDatabase.getInstance().getReference().child("chat").child(chatID).push();
-
-            Map newMessageMap = new HashMap<>();
-            newMessageMap.put("message", mMessage.getText().toString());
-            newMessageMap.put("creator", FirebaseAuth.getInstance().getUid());
-
-            newMessageDB.updateChildren(newMessageMap);
-        }
-        //clearing the editText field
-        mMessage.setText(null);
-    }
 
     // function to initialize RecyclerView
     private void initializeRecyclerView() {
