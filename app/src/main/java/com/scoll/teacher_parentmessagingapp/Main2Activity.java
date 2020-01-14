@@ -7,6 +7,7 @@ import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
 import android.Manifest;
 import android.content.Intent;
@@ -14,12 +15,15 @@ import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
@@ -31,13 +35,22 @@ public class Main2Activity extends AppCompatActivity {
     private RecyclerView.Adapter mChatListAdapter;
     private RecyclerView.LayoutManager mChatListLayoutManager;
 
+    TextView username;
     ArrayList<ChatObject> chatList;
+    //FirebaseUser firebaseUser;
+    DatabaseReference referenceDB;
 
     @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main2);
+
+        //initializing variables
+        chatList = new ArrayList<>();
+        username = findViewById(R.id.username);
+        //firebaseUser = FirebaseAuth.getInstance();
+        referenceDB = FirebaseDatabase.getInstance().getReference().child("user").child(FirebaseAuth.getInstance().getUid()).child("chat");
 
         // findUser contacts onClick listener
         Button mFindUser = findViewById(R.id.findUser);
@@ -56,22 +69,14 @@ public class Main2Activity extends AppCompatActivity {
             public void onClick(View v) {
                 // fireBase documentation - user is logged out
                 FirebaseAuth.getInstance().signOut();
+                // Toast.makeText(this, "Logging out... See you next time!", Toast.LENGTH_LONG).show();
 
                 // making user go to a different page after logout
                 Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
-
-                // clears user access
-                // intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-
-
-                // Toast.makeText(this, "Logging out... See you next time!", Toast.LENGTH_LONG).show();
                 startActivity(intent);
                 finish();
             }
         });
-
-        //initializing chatList
-        chatList = new ArrayList<>();
 
         getPermissions();
         initializeRecyclerView();
@@ -79,11 +84,11 @@ public class Main2Activity extends AppCompatActivity {
     }
 
     private void getUserChatList(){
-        DatabaseReference mUserChatDB = FirebaseDatabase.getInstance().getReference().child("user").child(FirebaseAuth.getInstance().getUid()).child("chat");
+//        DatabaseReference mUserChatDB = FirebaseDatabase.getInstance().getReference().child("user").child(FirebaseAuth.getInstance().getUid()).child("chat");
 
         // listener
         // Log.e("Main2Activity", "contacts");
-        mUserChatDB.addValueEventListener(new ValueEventListener() {
+        referenceDB.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if(dataSnapshot.exists()){

@@ -1,24 +1,25 @@
-package com.scoll.teacher_parentmessagingapp;
+package com.scoll.teacher_parentmessagingapp.Model;
 
 public class UserObject {
     private String uid;
-    private String name;
+    private String username;
     private String phoneNumber;
 
+    public UserObject() {}
+
     // constructor for the userObject
-    public UserObject(String uid, String name, String phoneNumber){
+    public UserObject(String uid, String username, String phoneNumber){
         this.uid = uid;
-        this.name = name;
+        this.username = username;
         this.phoneNumber = phoneNumber;
     }
 
     // (getters) functions that returns the variables
     public String getPhoneNumber() {return phoneNumber;}
-    public String getName() {return name;}
+    public String getUsername() {return username;}
     public String getUid() {return uid;}
 
-
-    public void setName(String name) {
-        this.name = name;
+    public void setUsername(String username) {
+        this.username = username;
     }
 }

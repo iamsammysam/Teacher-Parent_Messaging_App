@@ -32,6 +32,7 @@ public class ChatActivity extends AppCompatActivity {
 
     ArrayList<MessageObject> messageList;
     String chatID;
+    EditText mMessage;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,9 +60,6 @@ public class ChatActivity extends AppCompatActivity {
     }
 
     // sendMessage function
-
-    EditText mMessage;
-
     private void sendMessage(){
         // grabs the EditText
         mMessage = findViewById(R.id.messageInput);
@@ -91,6 +89,7 @@ public class ChatActivity extends AppCompatActivity {
                 if(dataSnapshot.exists()){
                     String message = "";
                     String creatorID = "";
+                    String messageTime = "";
 
                     // if its null the app will crash
                     if(dataSnapshot.child("message").getValue() != null)
@@ -99,11 +98,14 @@ public class ChatActivity extends AppCompatActivity {
                     if(dataSnapshot.child("creator").getValue() != null)
                         creatorID = dataSnapshot.child("creator").getValue().toString();
 
-                    MessageObject mMessage = new MessageObject(dataSnapshot.getKey(), creatorID, message);
+                    if(dataSnapshot.child("messageTime").getValue() != null)
+                        messageTime = dataSnapshot.child("messageTime").getValue().toString();
+
+                    MessageObject mMessage = new MessageObject(dataSnapshot.getKey(), creatorID, message, messageTime);
                     messageList.add(mMessage);
 
                     // scrolls down to the last message
-                     mChatLayoutManager.scrollToPosition(messageList.size()-1);
+                    mChatLayoutManager.scrollToPosition(messageList.size()-1);
 
                     // updates mChatAdapter and notifies that something changed
                     mChatAdapter.notifyDataSetChanged();
@@ -128,7 +130,6 @@ public class ChatActivity extends AppCompatActivity {
     // function to initialize RecyclerView
     private void initializeRecyclerView() {
         mChat = findViewById(R.id.messageList);
-
         mChat.setNestedScrollingEnabled(false);
         mChat.setHasFixedSize(false);
 
