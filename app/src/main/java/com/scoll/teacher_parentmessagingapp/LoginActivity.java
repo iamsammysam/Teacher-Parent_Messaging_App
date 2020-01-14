@@ -77,7 +77,6 @@ public class LoginActivity extends AppCompatActivity {
                 mSendCode.setText("Verify Code");
             }
 
-
             @Override
             // success (account is verified)
             public void onVerificationCompleted(PhoneAuthCredential phoneAuthCredential) {
@@ -133,7 +132,7 @@ public class LoginActivity extends AppCompatActivity {
                                 if(!dataSnapshot.exists()){
                                     Map<String, Object>userMap = new HashMap<>();
                                     userMap.put("phoneNumber", user.getPhoneNumber());
-                                    userMap.put("name", user.getPhoneNumber());
+                                    userMap.put("username", user.getPhoneNumber());
 
                                     // sends the data off to the DB inside the user
                                     mUserDB.updateChildren(userMap);

@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.FirebaseDatabase;
+import com.scoll.teacher_parentmessagingapp.Model.UserObject;
 
 import java.util.ArrayList;
 
@@ -43,7 +44,7 @@ public class UserListAdapter extends RecyclerView.Adapter<UserListAdapter.UserLi
     @Override
     public void onBindViewHolder(@NonNull UserListViewHolder holder, final int position) {
         // grabs the position we need on the array userList e displays it
-        holder.mName.setText(userList.get(position).getName());
+        holder.mUsername.setText(userList.get(position).getUsername());
         holder.mPhoneNumber.setText(userList.get(position).getPhoneNumber());
 
         // on click listener for chat
@@ -65,13 +66,14 @@ public class UserListAdapter extends RecyclerView.Adapter<UserListAdapter.UserLi
         return userList.size();
     }
 
+
     public class UserListViewHolder extends RecyclerView.ViewHolder{
-        public TextView mName, mPhoneNumber;
+        public TextView mUsername, mPhoneNumber;
         public LinearLayout mItemLayout;
 
         public UserListViewHolder(View view){
             super(view);
-            mName = view.findViewById(R.id.name);
+            mUsername = view.findViewById(R.id.username);
             mPhoneNumber = view.findViewById(R.id.phoneNumber);
             mItemLayout = view.findViewById(R.id.itemLayout);
         }

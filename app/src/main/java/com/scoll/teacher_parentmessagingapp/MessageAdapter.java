@@ -23,6 +23,9 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageL
     // passing the variable
     ArrayList<MessageObject> messageList;
 
+    // Format the date before showing it
+//    mMessageTime = messageTime.setText(DateFormat.format("dd-MM-yyyy (HH:mm:ss)");
+
     // constructor
     public MessageAdapter(ArrayList<MessageObject> messageList){
         this.messageList = messageList;
@@ -45,6 +48,7 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageL
     public void onBindViewHolder(@NonNull MessageListViewHolder holder, final int position) {
         holder.mMessage.setText(messageList.get(position).getMessage());
         holder.mSender.setText(messageList.get(position).getSenderId());
+//        holder.mMessageTime.setText((CharSequence)messageList.get(position));
     }
 
     @Override
@@ -54,13 +58,14 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageL
 
     // class doesn't need to be public
     public class MessageListViewHolder extends RecyclerView.ViewHolder{
-        public TextView mMessage, mSender;
+        public TextView mMessage, mSender, mMessageTime;
         public LinearLayout mItemLayout;
 
         public MessageListViewHolder(View view){
             super(view);
             mMessage = view.findViewById(R.id.message);
             mSender = view.findViewById(R.id.sender);
+            mMessageTime = view.findViewById(R.id.messageTime);
             mItemLayout = view.findViewById(R.id.itemLayout);
         }
     }

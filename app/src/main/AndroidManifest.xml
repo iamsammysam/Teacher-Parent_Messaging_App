@@ -13,8 +13,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
-        <activity android:name=".SplashActivity"
-            android:theme="@style/Theme.AppCompat.DayNight.NoActionBar">
+        <activity android:name=".SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
@@ -24,9 +23,7 @@
         <activity android:name=".ChatActivity" />
         <activity android:name=".Main3Activity" />
         <activity android:name=".Main2Activity" />
-
-        <activity android:name=".LoginActivity">
-        </activity>
+        <activity android:name=".LoginActivity" />
 
         <meta-data
             android:name="preloaded_fonts"

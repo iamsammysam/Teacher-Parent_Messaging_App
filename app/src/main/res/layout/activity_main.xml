@@ -6,6 +6,13 @@
     android:layout_height="match_parent"
     tools:context=".LoginActivity">
 
+    <include
+        android:id="@+id/toolbar"
+        layout="@layout/bar_layout"
+        android:layout_width="411dp"
+        android:layout_height="83dp"
+        tools:layout_editor_absoluteX="0dp" />
+
     <EditText
         android:id="@+id/phoneNumber"
         android:layout_width="wrap_content"
@@ -42,6 +49,5 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/phoneNumber"
         app:layout_constraintVertical_bias="0.355" />
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>
