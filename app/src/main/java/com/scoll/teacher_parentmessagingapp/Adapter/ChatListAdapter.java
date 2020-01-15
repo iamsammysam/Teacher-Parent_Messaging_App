@@ -1,6 +1,6 @@
 // where we manage and display the chat list (same as chat collection)
 
-package com.scoll.teacher_parentmessagingapp;
+package com.scoll.teacher_parentmessagingapp.Adapter;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -13,8 +13,9 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.FirebaseDatabase;
+import com.scoll.teacher_parentmessagingapp.ChatActivity;
+import com.scoll.teacher_parentmessagingapp.Model.ChatObject;
+import com.scoll.teacher_parentmessagingapp.R;
 
 import java.util.ArrayList;
 

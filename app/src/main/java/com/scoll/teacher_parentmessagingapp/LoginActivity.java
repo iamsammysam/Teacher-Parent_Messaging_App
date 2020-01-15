@@ -42,7 +42,7 @@ public class LoginActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.login_main);
 
         // this will initialize fireBase on the project
         FirebaseApp.initializeApp(this);
@@ -155,7 +155,7 @@ public class LoginActivity extends AppCompatActivity {
         FirebaseAuth auth = FirebaseAuth.getInstance();
         if (auth.getCurrentUser() != null){
             // user is logged in
-            startActivity(new Intent(getApplicationContext(), Main2Activity.class));
+            startActivity(new Intent(getApplicationContext(), MainActivity.class));
             Toast.makeText(this, "Successfully signed in. Welcome!", Toast.LENGTH_LONG).show();
         } else {
             // user is not logged in

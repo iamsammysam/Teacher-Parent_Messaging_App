@@ -22,7 +22,7 @@
 
         <activity android:name=".ChatActivity" />
         <activity android:name=".Main3Activity" />
-        <activity android:name=".Main2Activity" />
+        <activity android:name=".MainActivity" />
         <activity android:name=".LoginActivity" />
 
         <meta-data

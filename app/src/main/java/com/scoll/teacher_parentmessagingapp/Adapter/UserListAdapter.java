@@ -1,6 +1,6 @@
 // where we manage and display the user list (same as user collection)
 
-package com.scoll.teacher_parentmessagingapp;
+package com.scoll.teacher_parentmessagingapp.Adapter;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.FirebaseDatabase;
 import com.scoll.teacher_parentmessagingapp.Model.UserObject;
+import com.scoll.teacher_parentmessagingapp.R;
 
 import java.util.ArrayList;
 

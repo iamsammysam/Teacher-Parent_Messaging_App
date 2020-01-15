@@ -1,6 +1,6 @@
 // where we manage and display messages (same as message collection)
 
-package com.scoll.teacher_parentmessagingapp;
+package com.scoll.teacher_parentmessagingapp.Adapter;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,11 +11,10 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.FirebaseDatabase;
+import com.scoll.teacher_parentmessagingapp.Model.MessageObject;
+import com.scoll.teacher_parentmessagingapp.R;
 
 import java.util.ArrayList;
-import java.util.List;
 
 // implementing the viewHolder (gets the data from the xml)
 public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageListViewHolder> {

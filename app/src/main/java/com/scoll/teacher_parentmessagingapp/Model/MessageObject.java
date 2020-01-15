@@ -1,4 +1,4 @@
-package com.scoll.teacher_parentmessagingapp;
+package com.scoll.teacher_parentmessagingapp.Model;
 
 import java.util.Date;
 
