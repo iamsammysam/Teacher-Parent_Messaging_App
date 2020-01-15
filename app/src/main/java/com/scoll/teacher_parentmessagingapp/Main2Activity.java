@@ -120,7 +120,6 @@ public class Main2Activity extends AppCompatActivity {
             Manifest.permission.WRITE_CONTACTS, Manifest.permission.READ_CONTACTS}, 1);
     }
 
-
     //function to initialize menu.xml
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
