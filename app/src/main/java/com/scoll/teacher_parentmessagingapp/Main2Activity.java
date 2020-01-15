@@ -13,6 +13,8 @@ import android.Manifest;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -62,21 +64,21 @@ public class Main2Activity extends AppCompatActivity {
         });
 
         // logout onClick listener
-        Button mLogout = findViewById(R.id.logout);
-        mLogout.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-                // fireBase documentation - user is logged out
-                FirebaseAuth.getInstance().signOut();
-                // Toast.makeText(this, "Logging out... See you next time!", Toast.LENGTH_LONG).show();
-
-                // making user go to a different page after logout
-                Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
-                startActivity(intent);
-                finish();
-            }
-        });
+//        Button mLogout = findViewById(R.id.logout);
+//        mLogout.setOnClickListener(new View.OnClickListener() {
+//
+//            @Override
+//            public void onClick(View v) {
+//                // fireBase documentation - user is logged out
+//                FirebaseAuth.getInstance().signOut();
+//                // Toast.makeText(this, "Logging out... See you next time!", Toast.LENGTH_LONG).show();
+//
+//                // making user go to a different page after logout
+//                Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
+//                startActivity(intent);
+//                finish();
+//            }
+//        });
 
         getPermissions();
         initializeRecyclerView();
@@ -116,6 +118,30 @@ public class Main2Activity extends AppCompatActivity {
     private void getPermissions() {
         requestPermissions(new String[] {
             Manifest.permission.WRITE_CONTACTS, Manifest.permission.READ_CONTACTS}, 1);
+    }
+
+
+    //function to initialize menu.xml
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch(item.getItemId()){
+            case R.id.logout:
+                FirebaseAuth.getInstance().signOut();
+
+                // making user go to a different page after logout
+                startActivity(new Intent(Main2Activity.this, LoginActivity.class));
+
+                //Toast.makeText(this, "Logging out... See you next time!", Toast.LENGTH_LONG).show();
+                finish();
+                return true;
+        }
+        return false;
     }
 
     // function to initialize RecyclerView
