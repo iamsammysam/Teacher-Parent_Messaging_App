@@ -5,11 +5,11 @@ android:layout_height="wrap_content"
 android:padding="10dp"
 android:id="@+id/itemLayoutUser">
 
-<de.hdodenhof.circleimageview.CircleImageView
-    android:layout_width="50dp"
-    android:layout_height="50dp"
-    android:id="@+id/profileImage"
-    android:src="@mipmap/ic_launcher"/>
+    <ImageView
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:id="@+id/profileImage"
+        android:src="@drawable/gradhat"/>
 
     <TextView
         android:id="@+id/username"
