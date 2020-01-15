@@ -88,7 +88,7 @@ public class Main3Activity extends AppCompatActivity {
                         if(childSnapshot.child("phoneNumber").getValue()!= null)
                             phoneNumber = childSnapshot.child("phoneNumber").getValue().toString();
 
-                        if(childSnapshot.child("usernname").getValue()!= null)
+                        if(childSnapshot.child("username").getValue()!= null)
                             username = childSnapshot.child("username").getValue().toString();
 
                         UserObject mUser = new UserObject(childSnapshot.getKey(), username, phoneNumber);
