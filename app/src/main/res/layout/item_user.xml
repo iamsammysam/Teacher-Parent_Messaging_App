@@ -1,18 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:id="@+id/itemLayout">
+android:layout_width="match_parent"
+android:layout_height="wrap_content"
+android:padding="10dp"
+android:id="@+id/itemLayoutUser">
+
+<de.hdodenhof.circleimageview.CircleImageView
+    android:layout_width="50dp"
+    android:layout_height="50dp"
+    android:id="@+id/profileImage"
+    android:src="@mipmap/ic_launcher"/>
 
     <TextView
-        android:layout_width="match_parent"
+        android:id="@+id/username"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="15dp"
+        android:layout_toRightOf="@id/profileImage"
         android:text="Contact Name"
-        android:id="@+id/username"/>
+        android:textSize="16dp" />
 
     <TextView
-        android:layout_width="match_parent"
+        android:id="@+id/phoneNumber"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:layout_marginLeft="15dp"
+        android:layout_toRightOf="@id/profileImage"
         android:text="Phone Number"
-        android:id="@+id/phoneNumber"/>
+        android:textSize="16dp" />
 </LinearLayout>

@@ -48,7 +48,7 @@ public class UserListAdapter extends RecyclerView.Adapter<UserListAdapter.UserLi
         holder.mPhoneNumber.setText(userList.get(position).getPhoneNumber());
 
         // on click listener for chat
-        holder.mItemLayout.setOnClickListener(new View.OnClickListener() {
+        holder.mItemLayoutUser.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                // returns a unique ID that doesn't exist inside "chat" on the FireBaseDatabase
@@ -69,13 +69,13 @@ public class UserListAdapter extends RecyclerView.Adapter<UserListAdapter.UserLi
 
     public class UserListViewHolder extends RecyclerView.ViewHolder{
         public TextView mUsername, mPhoneNumber;
-        public LinearLayout mItemLayout;
+        public LinearLayout mItemLayoutUser;
 
         public UserListViewHolder(View view){
             super(view);
             mUsername = view.findViewById(R.id.username);
             mPhoneNumber = view.findViewById(R.id.phoneNumber);
-            mItemLayout = view.findViewById(R.id.itemLayout);
+            mItemLayoutUser = view.findViewById(R.id.itemLayoutUser);
         }
     }
 }
