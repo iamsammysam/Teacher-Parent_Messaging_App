@@ -25,36 +25,35 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="25dp"
-            android:text="Username"
+            android:text="Teacher-Parent Messanger"
             android:textColor="#ffff"
             android:textSize="20dp"
             android:textStyle="bold" />
     </androidx.appcompat.widget.Toolbar>
 
-<!--    <com.google.android.material.tabs.TabLayout-->
-<!--        android:id="@+id/tab_layout"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:background="@color/colorPrimaryDark"-->
-<!--        app:tabIndicatorColor="#ffff"-->
-<!--        app:tabSelectedTextColor="#ffff"-->
-<!--        app:tabTextAppearance="@style/TabLayoutTextStyle"-->
-<!--        app:tabTextColor="#ffff" />-->
-
     <Button
         android:id="@+id/findUser"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Contact List"
-        android:layout_marginTop="10dp"
+        android:text="CONTACTS"
+        android:layout_marginTop="15dp"
         android:layout_marginLeft="10dp"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Chat List"
+        android:textSize="20dp"
+        android:textStyle="bold"
+        android:layout_marginTop="40dp"
+        android:layout_marginLeft="15dp"/>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id='@+id/chatList'
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
-        android:layout_marginLeft="10dp">
+        android:layout_marginLeft="15dp">
     </androidx.recyclerview.widget.RecyclerView>
 
 </LinearLayout>
