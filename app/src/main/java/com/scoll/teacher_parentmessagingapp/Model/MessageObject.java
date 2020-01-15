@@ -6,7 +6,7 @@ public class MessageObject {
     private String messageId;
     private String senderId;
     private String message;
-//    private long messageTime;
+    // private long messageTime;
 
 
     // constructor for the chatObject
@@ -23,5 +23,6 @@ public class MessageObject {
     public String getMessageId() {return messageId;}
     public String getSenderId() {return senderId;}
     public String getMessage() {return message;}
-//    public long getMessageTime() {return messageTime;}
+    // public long getMessageTime() {return messageTime;}
+
 }

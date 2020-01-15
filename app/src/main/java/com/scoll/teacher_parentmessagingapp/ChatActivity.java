@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.ChildEventListener;
@@ -96,11 +97,11 @@ public class ChatActivity extends AppCompatActivity {
                     if(dataSnapshot.child("message").getValue() != null)
                         message = dataSnapshot.child("message").getValue().toString();
 
-                    if(dataSnapshot.child("creator").getValue() != null)
-                        creatorID = dataSnapshot.child("creator").getValue().toString();
-
-                    if(dataSnapshot.child("messageTime").getValue() != null)
-                        messageTime = dataSnapshot.child("messageTime").getValue().toString();
+//                    if(dataSnapshot.child("creator").getValue() != null)
+//                        creatorID = dataSnapshot.child("creator").getValue().toString();
+//
+//                    if(dataSnapshot.child("messageTime").getValue() != null)
+//                        messageTime = dataSnapshot.child("messageTime").getValue().toString();
 
                     MessageObject mMessage = new MessageObject(dataSnapshot.getKey(), creatorID, message, messageTime);
                     messageList.add(mMessage);
