@@ -73,7 +73,7 @@ public class ChatActivity extends AppCompatActivity {
 
             Map newMessageMap = new HashMap<>();
             newMessageMap.put("message", mMessage.getText().toString());
-            newMessageMap.put("creator", FirebaseAuth.getInstance().getUid());
+            newMessageMap.put("creatorId", FirebaseAuth.getInstance().getUid());
 
             newMessageDB.updateChildren(newMessageMap);
         }
@@ -97,8 +97,8 @@ public class ChatActivity extends AppCompatActivity {
                     if(dataSnapshot.child("message").getValue() != null)
                         message = dataSnapshot.child("message").getValue().toString();
 
-//                    if(dataSnapshot.child("creator").getValue() != null)
-//                        creatorID = dataSnapshot.child("creator").getValue().toString();
+                    if(dataSnapshot.child("creatorId").getValue() != null)
+                        creatorID = dataSnapshot.child("creatorId").getValue().toString();
 //
 //                    if(dataSnapshot.child("messageTime").getValue() != null)
 //                        messageTime = dataSnapshot.child("messageTime").getValue().toString();
@@ -136,6 +136,7 @@ public class ChatActivity extends AppCompatActivity {
         mChat.setHasFixedSize(false);
 
         mChatLayoutManager = new LinearLayoutManager(getApplicationContext(), RecyclerView.VERTICAL, false);
+
         mChat.setLayoutManager(mChatLayoutManager);
 
         mChatAdapter = new MessageAdapter(messageList);

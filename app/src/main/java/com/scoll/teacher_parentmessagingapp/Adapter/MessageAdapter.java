@@ -21,13 +21,11 @@ import java.util.ArrayList;
 public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageListViewHolder> {
 
     // passing the variables
-    public static final int MSG_TYPE_RIGHT = 0;
-    public static final int MSG_TYPE_LEFT = 1;
+    public final int MSG_TYPE_RIGHT = 1;
+    public final int MSG_TYPE_LEFT = 0;
 
+    // initializing messageList
     ArrayList<MessageObject> messageList;
-
-    // Format the date before showing it
-    // mMessageTime = messageTime.setText(DateFormat.format("dd-MM-yyyy (HH:mm:ss)");
 
     // constructor
     public MessageAdapter(ArrayList<MessageObject> messageList){
@@ -39,28 +37,20 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageL
     public MessageListViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
         // making the call for the item_chat (depending on the firebaseUser position)
-        if (viewType == MSG_TYPE_RIGHT) {
-            View layoutView = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_message_left, null, false);
-            RecyclerView.LayoutParams lp = new RecyclerView.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-            layoutView.setLayoutParams(lp);
-
-            MessageListViewHolder rcv = new MessageListViewHolder(layoutView);
-            return rcv;
+        if (viewType == MSG_TYPE_LEFT) {
+            View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_message_left, null, false);
+            return new MessageAdapter.MessageListViewHolder(view);
 
         } else {
-            View layoutView = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_message_left, null, false);
-            RecyclerView.LayoutParams lp = new RecyclerView.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-            layoutView.setLayoutParams(lp);
-
-            MessageListViewHolder rcv = new MessageListViewHolder(layoutView);
-            return rcv;
+            View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_message_right, null, false);
+            return new MessageAdapter.MessageListViewHolder(view);
         }
     }
 
     @Override
-    public void onBindViewHolder(@NonNull MessageListViewHolder holder, final int position) {
+    public void onBindViewHolder(@NonNull MessageListViewHolder holder, int position) {
         holder.mMessage.setText(messageList.get(position).getMessage());
-//        holder.mSender.setText(messageList.get(position).getSenderId());
+        holder.mSender.setText(messageList.get(position).getSenderId());
 //        holder.mReceiver.setText(messageList.get(position).getReceiverId());
 //        holder.mMessageTime.setText((CharSequence)messageList.get(position));
     }
@@ -75,13 +65,13 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageL
         public TextView mMessage, mSender;
         public LinearLayout mItemLayout;
 
-        public MessageListViewHolder(View view){
-            super(view);
-            mMessage = view.findViewById(R.id.message);
-            //mSender = view.findViewById(R.id.sender);
+        public MessageListViewHolder(View itemView){
+            super(itemView);
+            mMessage = itemView.findViewById(R.id.message);
+            mSender = itemView.findViewById(R.id.sender);
             //mReceiver = view.findViewById(R.id.receiver);
             //mMessageTime = view.findViewById(R.id.messageTime);
-            mItemLayout = view.findViewById(R.id.itemLayout);
+            mItemLayout = itemView.findViewById(R.id.itemLayout);
         }
     }
 
