@@ -136,7 +136,6 @@ public class MainActivity extends AppCompatActivity {
 
         mChatListLayoutManager = new LinearLayoutManager(getApplicationContext(), RecyclerView.VERTICAL, false);
         mChatList.setLayoutManager(mChatListLayoutManager);
-
         mChatListAdapter = new ChatListAdapter(chatList);
         mChatList.setAdapter(mChatListAdapter);
     }

@@ -11,7 +11,9 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.scoll.teacher_parentmessagingapp.Model.UserObject;
 import com.scoll.teacher_parentmessagingapp.R;
@@ -58,6 +60,8 @@ public class UserListAdapter extends RecyclerView.Adapter<UserListAdapter.UserLi
                 // creates a chat inside user1 and user2 with the same ID
                 FirebaseDatabase.getInstance().getReference().child("user").child(FirebaseAuth.getInstance().getUid()).child("chat").child(key).setValue(true);
                 FirebaseDatabase.getInstance().getReference().child("user").child(userList.get(position).getUid()).child("chat").child(key).setValue(true);
+
+                DatabaseReference mUser = FirebaseDatabase.getInstance().getReference().child("user").child(userList.get(position).getUid());
             }
         });
     }

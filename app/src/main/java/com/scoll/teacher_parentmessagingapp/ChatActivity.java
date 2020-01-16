@@ -35,6 +35,7 @@ public class ChatActivity extends AppCompatActivity {
     ArrayList<MessageObject> messageList;
     String chatID;
     EditText mMessage;
+    DatabaseReference mUser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,6 +44,7 @@ public class ChatActivity extends AppCompatActivity {
 
         // initializing chatID
         chatID = getIntent().getExtras().getString("chatID");
+        DatabaseReference mUser;
 
         // initialing the sendBtn message button
         Button mSendBtn = findViewById(R.id.sendBtn);
@@ -74,6 +76,7 @@ public class ChatActivity extends AppCompatActivity {
             Map newMessageMap = new HashMap<>();
             newMessageMap.put("message", mMessage.getText().toString());
             newMessageMap.put("creatorId", FirebaseAuth.getInstance().getUid());
+//            newMessageMap.put("receiverId", mUser);
 
             newMessageDB.updateChildren(newMessageMap);
         }
@@ -91,7 +94,8 @@ public class ChatActivity extends AppCompatActivity {
                 if(dataSnapshot.exists()){
                     String message = "";
                     String creatorID = "";
-                    String messageTime = "";
+                    String receiverID = "";
+//                    String messageTime = "";
 
                     // if its null the app will crash
                     if(dataSnapshot.child("message").getValue() != null)
@@ -99,11 +103,14 @@ public class ChatActivity extends AppCompatActivity {
 
                     if(dataSnapshot.child("creatorId").getValue() != null)
                         creatorID = dataSnapshot.child("creatorId").getValue().toString();
+
+//                    if(dataSnapshot.child("receiverId").getValue() != null)
+//                        receiverID = dataSnapshot.child("receiverId").getValue().toString();
 //
 //                    if(dataSnapshot.child("messageTime").getValue() != null)
 //                        messageTime = dataSnapshot.child("messageTime").getValue().toString();
 
-                    MessageObject mMessage = new MessageObject(dataSnapshot.getKey(), creatorID, message, messageTime);
+                    MessageObject mMessage = new MessageObject(dataSnapshot.getKey(), creatorID, receiverID, message);
                     messageList.add(mMessage);
 
                     // scrolls down to the last message
@@ -136,9 +143,7 @@ public class ChatActivity extends AppCompatActivity {
         mChat.setHasFixedSize(false);
 
         mChatLayoutManager = new LinearLayoutManager(getApplicationContext(), RecyclerView.VERTICAL, false);
-
         mChat.setLayoutManager(mChatLayoutManager);
-
         mChatAdapter = new MessageAdapter(messageList);
         mChat.setAdapter(mChatAdapter);
     }

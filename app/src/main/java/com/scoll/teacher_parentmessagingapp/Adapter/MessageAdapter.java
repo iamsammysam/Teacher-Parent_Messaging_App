@@ -21,8 +21,8 @@ import java.util.ArrayList;
 public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageListViewHolder> {
 
     // passing the variables
-    public final int MSG_TYPE_RIGHT = 1;
-    public final int MSG_TYPE_LEFT = 0;
+    public final int MSG_TYPE_RIGHT = 0;
+    public final int MSG_TYPE_LEFT = 1;
 
     // initializing messageList
     ArrayList<MessageObject> messageList;
@@ -60,16 +60,15 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageL
         return (messageList == null) ? 0 : messageList.size();
     }
 
-    // class doesn't need to be public
     public class MessageListViewHolder extends RecyclerView.ViewHolder{
-        public TextView mMessage, mSender;
+        public TextView mMessage, mSender, mReceiver;
         public LinearLayout mItemLayout;
 
         public MessageListViewHolder(View itemView){
             super(itemView);
             mMessage = itemView.findViewById(R.id.message);
             mSender = itemView.findViewById(R.id.sender);
-            //mReceiver = view.findViewById(R.id.receiver);
+            //mReceiver = itemView.findViewById(R.id.receiver);
             //mMessageTime = view.findViewById(R.id.messageTime);
             mItemLayout = itemView.findViewById(R.id.itemLayout);
         }

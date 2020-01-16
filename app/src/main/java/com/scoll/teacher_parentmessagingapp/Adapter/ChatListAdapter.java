@@ -22,10 +22,7 @@ import java.util.ArrayList;
 // implementing the viewHolder (gets the data from the xml)
 public class ChatListAdapter extends RecyclerView.Adapter<ChatListAdapter.ChatListViewHolder> {
 
-//    // passing the variables
-//    public static final int MSG_TYPE_LEFT = 0;
-//    public static final int MSG_TYPE_RIGHT = 1;
-
+    // initializing chatList
     private ArrayList<ChatObject> chatList;
 
     // constructor
@@ -41,8 +38,8 @@ public class ChatListAdapter extends RecyclerView.Adapter<ChatListAdapter.ChatLi
         RecyclerView.LayoutParams lp = new RecyclerView.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         layoutView.setLayoutParams(lp);
 
-        ChatListViewHolder rcv = new ChatListViewHolder(layoutView);
         // viewHolder variable
+        ChatListViewHolder rcv = new ChatListViewHolder(layoutView);
         return rcv;
     }
 
