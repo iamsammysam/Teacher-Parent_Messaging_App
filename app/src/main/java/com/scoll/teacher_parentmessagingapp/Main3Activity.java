@@ -17,6 +17,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
+import com.scoll.teacher_parentmessagingapp.Adapter.UserListAdapter;
 import com.scoll.teacher_parentmessagingapp.Model.UserObject;
 
 import java.util.ArrayList;
@@ -52,9 +53,6 @@ public class Main3Activity extends AppCompatActivity {
     private void getContactList() {
         Cursor phoneNumbers = getContentResolver().query(ContactsContract.CommonDataKinds.Phone.CONTENT_URI, null, null, null, null);
 
-        // Debugging
-        // Log.e("Main3Activity", "contacts");
-
         while (phoneNumbers.moveToNext()) {
             String name = phoneNumbers.getString(phoneNumbers.getColumnIndex(ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME));
             String phoneNumber = phoneNumbers.getString(phoneNumbers.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER));
@@ -72,7 +70,6 @@ public class Main3Activity extends AppCompatActivity {
 
     // function to check fireBase DATABASE to confirm if the user is there
     private void getUserDetails(final UserObject mContact) {
-//        DatabaseReference mUserDB = FirebaseDatabase.getInstance().getReference().child("user");
 
         // fetching data from DB
         Query query = referenceDB.orderByChild("phoneNumber").equalTo(mContact.getPhoneNumber());
@@ -122,7 +119,6 @@ public class Main3Activity extends AppCompatActivity {
 
         mUserListLayoutManager = new LinearLayoutManager(getApplicationContext(), RecyclerView.VERTICAL, false);
         mUserList.setLayoutManager(mUserListLayoutManager);
-
         mUserListAdapter = new UserListAdapter(userList);
         mUserList.setAdapter(mUserListAdapter);
     }

@@ -1,6 +1,6 @@
 // where we manage and display the chat list (same as chat collection)
 
-package com.scoll.teacher_parentmessagingapp;
+package com.scoll.teacher_parentmessagingapp.Adapter;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -13,16 +13,17 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.FirebaseDatabase;
+import com.scoll.teacher_parentmessagingapp.ChatActivity;
+import com.scoll.teacher_parentmessagingapp.Model.ChatObject;
+import com.scoll.teacher_parentmessagingapp.R;
 
 import java.util.ArrayList;
 
 // implementing the viewHolder (gets the data from the xml)
 public class ChatListAdapter extends RecyclerView.Adapter<ChatListAdapter.ChatListViewHolder> {
 
-    // passing the variable
-    ArrayList<ChatObject> chatList;
+    // initializing chatList
+    private ArrayList<ChatObject> chatList;
 
     // constructor
     public ChatListAdapter(ArrayList<ChatObject> chatList){
@@ -37,8 +38,8 @@ public class ChatListAdapter extends RecyclerView.Adapter<ChatListAdapter.ChatLi
         RecyclerView.LayoutParams lp = new RecyclerView.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         layoutView.setLayoutParams(lp);
 
-        ChatListViewHolder rcv = new ChatListViewHolder(layoutView);
         // viewHolder variable
+        ChatListViewHolder rcv = new ChatListViewHolder(layoutView);
         return rcv;
     }
 
@@ -70,6 +71,7 @@ public class ChatListAdapter extends RecyclerView.Adapter<ChatListAdapter.ChatLi
     public class ChatListViewHolder extends RecyclerView.ViewHolder{
         public TextView mTitle;
         public LinearLayout mItemLayout;
+
         public ChatListViewHolder(View view){
             super(view);
             mTitle = view.findViewById(R.id.title);

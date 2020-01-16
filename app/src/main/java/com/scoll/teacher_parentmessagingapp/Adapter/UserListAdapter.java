@@ -1,6 +1,6 @@
 // where we manage and display the user list (same as user collection)
 
-package com.scoll.teacher_parentmessagingapp;
+package com.scoll.teacher_parentmessagingapp.Adapter;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,9 +11,12 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.scoll.teacher_parentmessagingapp.Model.UserObject;
+import com.scoll.teacher_parentmessagingapp.R;
 
 import java.util.ArrayList;
 
@@ -48,7 +51,7 @@ public class UserListAdapter extends RecyclerView.Adapter<UserListAdapter.UserLi
         holder.mPhoneNumber.setText(userList.get(position).getPhoneNumber());
 
         // on click listener for chat
-        holder.mItemLayout.setOnClickListener(new View.OnClickListener() {
+        holder.mItemLayoutUser.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                // returns a unique ID that doesn't exist inside "chat" on the FireBaseDatabase
@@ -57,6 +60,8 @@ public class UserListAdapter extends RecyclerView.Adapter<UserListAdapter.UserLi
                 // creates a chat inside user1 and user2 with the same ID
                 FirebaseDatabase.getInstance().getReference().child("user").child(FirebaseAuth.getInstance().getUid()).child("chat").child(key).setValue(true);
                 FirebaseDatabase.getInstance().getReference().child("user").child(userList.get(position).getUid()).child("chat").child(key).setValue(true);
+
+                DatabaseReference mUser = FirebaseDatabase.getInstance().getReference().child("user").child(userList.get(position).getUid());
             }
         });
     }
@@ -69,13 +74,13 @@ public class UserListAdapter extends RecyclerView.Adapter<UserListAdapter.UserLi
 
     public class UserListViewHolder extends RecyclerView.ViewHolder{
         public TextView mUsername, mPhoneNumber;
-        public LinearLayout mItemLayout;
+        public LinearLayout mItemLayoutUser;
 
         public UserListViewHolder(View view){
             super(view);
             mUsername = view.findViewById(R.id.username);
             mPhoneNumber = view.findViewById(R.id.phoneNumber);
-            mItemLayout = view.findViewById(R.id.itemLayout);
+            mItemLayoutUser = view.findViewById(R.id.itemLayoutUser);
         }
     }
 }
