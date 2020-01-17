@@ -51,8 +51,9 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageL
     public void onBindViewHolder(@NonNull MessageListViewHolder holder, int position) {
         holder.mMessage.setText(messageList.get(position).getMessage());
         holder.mSender.setText(messageList.get(position).getSenderId());
-//        holder.mReceiver.setText(messageList.get(position).getReceiverId());
-//        holder.mMessageTime.setText((CharSequence)messageList.get(position));
+        holder.mMessageTranslation.setText(messageList.get(position).getTranslation());
+        //holder.mReceiver.setText(messageList.get(position).getReceiverId());
+        //holder.mMessageTime.setText((CharSequence)messageList.get(position));
     }
 
     @Override
@@ -61,12 +62,13 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageL
     }
 
     public class MessageListViewHolder extends RecyclerView.ViewHolder{
-        public TextView mMessage, mSender, mReceiver;
+        public TextView mMessage, mSender, mMessageTranslation;
         public LinearLayout mItemLayout;
 
         public MessageListViewHolder(View itemView){
             super(itemView);
             mMessage = itemView.findViewById(R.id.message);
+            mMessageTranslation = itemView.findViewById(R.id.messageTranslation);
             mSender = itemView.findViewById(R.id.sender);
             //mReceiver = itemView.findViewById(R.id.receiver);
             //mMessageTime = view.findViewById(R.id.messageTime);

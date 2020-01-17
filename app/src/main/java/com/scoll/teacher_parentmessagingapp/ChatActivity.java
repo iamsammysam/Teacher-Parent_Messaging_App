@@ -12,9 +12,9 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import com.google.android.gms.tasks.Continuation;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
-import com.google.android.gms.tasks.Tasks;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
@@ -42,7 +42,9 @@ public class ChatActivity extends AppCompatActivity {
 
     ArrayList<MessageObject> messageList;
     String chatID;
-    EditText mMessage;
+    EditText mMessageInput;
+    TextView mMessage;
+    Task<String> mMessageTranslation;
     DatabaseReference mUser;
 
     @Override
@@ -72,24 +74,25 @@ public class ChatActivity extends AppCompatActivity {
     }
 
     // sendMessage function
-    private void sendMessage(){
+    private void sendMessage() {
         // grabs the EditText
-        mMessage = findViewById(R.id.messageInput);
+        mMessageInput = findViewById(R.id.messageInput);
 
-        if(!mMessage.getText().toString().isEmpty()){
+        if (!mMessageInput.getText().toString().isEmpty()) {
             // getting the messageId variable from the ChatListAdapter
             // database reference - goes into chat and chatId and pushes to create a new message
             DatabaseReference newMessageDB = FirebaseDatabase.getInstance().getReference().child("chat").child(chatID).push();
 
+            // sends message content on activity_chat layout to the database
             Map newMessageMap = new HashMap<>();
-            newMessageMap.put("message", mMessage.getText().toString());
+            newMessageMap.put("message", mMessageInput.getText().toString());
             newMessageMap.put("creatorId", FirebaseAuth.getInstance().getUid());
-//            newMessageMap.put("receiverId", mUser);
+            newMessageMap.put("translation", mMessageTranslation.getResult());
 
             newMessageDB.updateChildren(newMessageMap);
         }
         //clearing the editText field
-        mMessage.setText(null);
+        mMessageInput.setText(null);
     }
 
     // displaying messages from the FireBase DB
@@ -99,17 +102,21 @@ public class ChatActivity extends AppCompatActivity {
 
             // onChildAdded will get all the "children" in the DB, when we add a child it will be called again
             public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-                if(dataSnapshot.exists()){
+                if (dataSnapshot.exists()) {
                     String message = "";
+                    String translation = "";
                     String creatorID = "";
                     String receiverID = "";
-//                    String messageTime = "";
+                    // String messageTime = "";
 
                     // if its null the app will crash
-                    if(dataSnapshot.child("message").getValue() != null)
+                    if (dataSnapshot.child("message").getValue() != null)
                         message = dataSnapshot.child("message").getValue().toString();
 
-                    if(dataSnapshot.child("creatorId").getValue() != null)
+                    if (dataSnapshot.child("translation").getValue() != null)
+                        translation = dataSnapshot.child("translation").getValue().toString();
+
+                    if (dataSnapshot.child("creatorId").getValue() != null)
                         creatorID = dataSnapshot.child("creatorId").getValue().toString();
 
 //                    if(dataSnapshot.child("receiverId").getValue() != null)
@@ -118,11 +125,11 @@ public class ChatActivity extends AppCompatActivity {
 //                    if(dataSnapshot.child("messageTime").getValue() != null)
 //                        messageTime = dataSnapshot.child("messageTime").getValue().toString();
 
-                    MessageObject mMessage = new MessageObject(dataSnapshot.getKey(), creatorID, receiverID, message);
+                    MessageObject mMessage = new MessageObject(dataSnapshot.getKey(), creatorID, receiverID, message, translation);
                     messageList.add(mMessage);
 
                     // scrolls down to the last message
-                    mChatLayoutManager.scrollToPosition(messageList.size()-1);
+                    mChatLayoutManager.scrollToPosition(messageList.size() - 1);
 
                     // updates mChatAdapter and notifies that something changed
                     mChatAdapter.notifyDataSetChanged();
@@ -130,19 +137,22 @@ public class ChatActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) { }
+            public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+            }
 
             @Override
-            public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) { }
+            public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
+            }
 
             @Override
-            public void onChildMoved(@NonNull DataSnapshot dataSnapshot, @Nullable String s) { }
+            public void onChildMoved(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+            }
 
             @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) { }
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+            }
         });
     }
-
 
     // function to initialize RecyclerView
     private void initializeRecyclerView() {
@@ -158,12 +168,10 @@ public class ChatActivity extends AppCompatActivity {
 
     // Translation feature
     // Create an English-Spanish translator:
-    FirebaseTranslatorOptions options =
-
-            new FirebaseTranslatorOptions.Builder()
-                    .setSourceLanguage(FirebaseTranslateLanguage.EN)
-                    .setTargetLanguage(FirebaseTranslateLanguage.ES)
-                    .build();
+    FirebaseTranslatorOptions options = new FirebaseTranslatorOptions.Builder()
+            .setSourceLanguage(FirebaseTranslateLanguage.EN)
+            .setTargetLanguage(FirebaseTranslateLanguage.ES)
+            .build();
 
     final FirebaseTranslator englishSpanishTranslator = FirebaseNaturalLanguage.getInstance().getTranslator(options);
 
@@ -171,24 +179,37 @@ public class ChatActivity extends AppCompatActivity {
             .requireWifi()
             .build();
 
+    // checking model download
+    public void downloadModelIfNeeded(){
+        englishSpanishTranslator.downloadModelIfNeeded(conditions).addOnSuccessListener(new OnSuccessListener<Void>() {
+            @Override
+            public void onSuccess(Void v) {
+                translate();
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                // Model couldn’t be downloaded or other internal error.
+            }
+        });
+    }
 
-    public Task<String> translate() {
-        mMessage = findViewById(R.id.messageInput);
+    // calling translation function
+    public void translate() {
+        mMessage = findViewById(R.id.message);
         final String text = mMessage.getText().toString();
 
-        return englishSpanishTranslator.downloadModelIfNeeded().continueWithTask(
-                new Continuation<Void, Task<String>>() {
-                    @Override
-                    public Task<String> then(@NonNull Task<Void> task) {
-                        if (task.isSuccessful()) {
-                            translatedText = (englishSpanishTranslator.translate(text));
+        englishSpanishTranslator.translate(text).addOnSuccessListener(new OnSuccessListener<String>() {
+            @Override
+            public void onSuccess(@NonNull String translatedText) {
+                mMessageTranslation = englishSpanishTranslator.translate(text);
+            }
 
-                        } else {
-                            Exception e = task.getException();
-                            if (e == null) { }
-                            return Tasks.forException(e);
-                        }
-                    }
-                });
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+
+            }
+        });
     }
 }

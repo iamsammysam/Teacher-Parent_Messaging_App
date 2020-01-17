@@ -11,11 +11,12 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <androidx.appcompat.widget.Toolbar
+       <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:background="@color/colorPrimaryDark"
+            android:padding="8dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
@@ -24,16 +25,35 @@
             app:layout_constraintVertical_bias="0.0"
             app:popupTheme="@style/MenuStyle">
 
-            <TextView
-                android:id="@+id/chat_username"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="25dp"
-                android:text="chat_username"
-                android:textColor="#ffff"
-                android:textSize="20dp"
-                android:textStyle="bold" />
-        </androidx.appcompat.widget.Toolbar>
+           <Spinner
+               android:id="@+id/sourceLangSelector"
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               app:layout_constraintBottom_toBottomOf="parent"
+               app:layout_constraintEnd_toStartOf="@+id/buttonSwitchLang"
+               app:layout_constraintStart_toStartOf="parent"
+               app:layout_constraintTop_toTopOf="parent" />
+
+           <Button
+               android:id="@+id/buttonSwitchLang"
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:text="switch"
+               app:layout_constraintBottom_toBottomOf="parent"
+               app:layout_constraintEnd_toEndOf="parent"
+               app:layout_constraintStart_toStartOf="parent"
+               app:layout_constraintTop_toTopOf="parent" />
+
+           <Spinner
+               android:id="@+id/targetLangSelector"
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:text="language1"
+               app:layout_constraintBottom_toBottomOf="parent"
+               app:layout_constraintEnd_toEndOf="parent"
+               app:layout_constraintStart_toEndOf="@+id/buttonSwitchLang"
+               app:layout_constraintTop_toTopOf="parent" />
+       </androidx.constraintlayout.widget.ConstraintLayout>
     </com.google.android.material.appbar.AppBarLayout>
 
     <androidx.recyclerview.widget.RecyclerView
@@ -42,7 +62,7 @@
         android:layout_height="wrap_content"
         android:layout_above="@+id/sendLayout"
         android:layout_alignParentTop="true"
-        android:layout_marginTop="60dp"
+        android:layout_marginTop="70dp"
         android:layout_marginLeft="15dp"
         android:layout_marginRight="15dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -72,4 +92,5 @@
             android:background="@drawable/ic_action_name"
             android:id="@+id/sendBtn"/>
     </LinearLayout>
+
 </RelativeLayout>

@@ -7,31 +7,50 @@
     android:padding="10dp">
 
     <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
         android:text="Message"
         android:id="@+id/message"
-        android:textSize="18dp"
-        android:padding="10dp"
-        android:layout_marginTop="@dimen/activity_vertical_margin"
-        android:textStyle="bold"
-        android:background="@drawable/background_left"
-        android:layout_alignParentLeft="true"/>
-
-    <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="36dp"
+        android:layout_marginTop="@dimen/activity_vertical_margin"
+        android:background="@drawable/background_left"
+        android:padding="8dp"
+        android:textSize="18dp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:text="Translation"
+        android:id="@+id/messageTranslation"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/message"
+        android:layout_alignParentLeft="true"
+        android:layout_marginLeft="59dp"
+        android:layout_marginTop="@dimen/activity_vertical_margin"
+        android:layout_marginBottom="-38dp"
+        android:background="@drawable/background_left"
+        android:padding="8dp"
+        android:textSize="18dp"
+        android:textStyle="bold" />
+
+    <TextView
         android:text="Sender"
+        android:id="@+id/sender"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:textSize="14dp"
         android:paddingTop="5dp"
-        android:id="@+id/sender"
+        android:padding="6dp"
         android:layout_alignParentLeft="true"
         android:background="@drawable/background_left"/>
 
-<!--    <TextView-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:text="Time"-->
-<!--        android:id="@+id/messageTime"/>-->
+    <RadioButton
+        android:id="@+id/translateBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_marginLeft="120dp"
+        android:layout_marginTop="@dimen/activity_vertical_margin"
+        android:text="Translate" />
 
 </RelativeLayout>
