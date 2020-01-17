@@ -12,12 +12,20 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.google.android.gms.tasks.Continuation;
+import com.google.android.gms.tasks.Task;
+import com.google.android.gms.tasks.Tasks;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.ml.common.modeldownload.FirebaseModelDownloadConditions;
+import com.google.firebase.ml.naturallanguage.FirebaseNaturalLanguage;
+import com.google.firebase.ml.naturallanguage.translate.FirebaseTranslateLanguage;
+import com.google.firebase.ml.naturallanguage.translate.FirebaseTranslator;
+import com.google.firebase.ml.naturallanguage.translate.FirebaseTranslatorOptions;
 import com.scoll.teacher_parentmessagingapp.Adapter.MessageAdapter;
 import com.scoll.teacher_parentmessagingapp.Model.MessageObject;
 
@@ -146,5 +154,41 @@ public class ChatActivity extends AppCompatActivity {
         mChat.setLayoutManager(mChatLayoutManager);
         mChatAdapter = new MessageAdapter(messageList);
         mChat.setAdapter(mChatAdapter);
+    }
+
+    // Translation feature
+    // Create an English-Spanish translator:
+    FirebaseTranslatorOptions options =
+
+            new FirebaseTranslatorOptions.Builder()
+                    .setSourceLanguage(FirebaseTranslateLanguage.EN)
+                    .setTargetLanguage(FirebaseTranslateLanguage.ES)
+                    .build();
+
+    final FirebaseTranslator englishSpanishTranslator = FirebaseNaturalLanguage.getInstance().getTranslator(options);
+
+    FirebaseModelDownloadConditions conditions = new FirebaseModelDownloadConditions.Builder()
+            .requireWifi()
+            .build();
+
+
+    public Task<String> translate() {
+        mMessage = findViewById(R.id.messageInput);
+        final String text = mMessage.getText().toString();
+
+        return englishSpanishTranslator.downloadModelIfNeeded().continueWithTask(
+                new Continuation<Void, Task<String>>() {
+                    @Override
+                    public Task<String> then(@NonNull Task<Void> task) {
+                        if (task.isSuccessful()) {
+                            translatedText = (englishSpanishTranslator.translate(text));
+
+                        } else {
+                            Exception e = task.getException();
+                            if (e == null) { }
+                            return Tasks.forException(e);
+                        }
+                    }
+                });
     }
 }
