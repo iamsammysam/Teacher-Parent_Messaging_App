@@ -45,7 +45,7 @@ public class ChatActivity extends AppCompatActivity {
     String chatID;
 
     EditText messageInput;
-    TextView messageTranslation;
+    //TextView messageTranslation;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,7 +53,7 @@ public class ChatActivity extends AppCompatActivity {
         setContentView(R.layout.activity_chat);
 
         messageInput = findViewById(R.id.messageInput);
-        messageTranslation = findViewById(R.id.messageTranslation);
+        //messageTranslation = findViewById(R.id.messageTranslation);
 
         // initializing chatID
         chatID = getIntent().getExtras().getString("chatID");
@@ -79,7 +79,6 @@ public class ChatActivity extends AppCompatActivity {
     private void sendMessage() {
         // grabs the EditText
         messageInput = findViewById(R.id.messageInput);
-        messageTranslation = findViewById(R.id.messageTranslation);
 
         if (!messageInput.getText().toString().isEmpty()) {
             // getting the messageId variable from the ChatListAdapter
@@ -107,7 +106,6 @@ public class ChatActivity extends AppCompatActivity {
             public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
                 if (dataSnapshot.exists()) {
                     String message = "";
-                    String translation = "";
                     String creatorID = "";
                     String receiverID = "";
                     // String messageTime = "";
@@ -115,11 +113,6 @@ public class ChatActivity extends AppCompatActivity {
                     // if its null the app will crash
                     if (dataSnapshot.child("message").getValue() != null)
                         message = dataSnapshot.child("message").getValue().toString();
-
-                    // translate here????
-
-                    if (dataSnapshot.child("translation").getValue() != null)
-                        translation = dataSnapshot.child("translation").getValue().toString();
 
                     if (dataSnapshot.child("creatorId").getValue() != null)
                         creatorID = dataSnapshot.child("creatorId").getValue().toString();
@@ -130,7 +123,7 @@ public class ChatActivity extends AppCompatActivity {
 //                    if(dataSnapshot.child("messageTime").getValue() != null)
 //                        messageTime = dataSnapshot.child("messageTime").getValue().toString();
 
-                    MessageObject mMessage = new MessageObject(dataSnapshot.getKey(), creatorID, receiverID, message, translation);
+                    MessageObject mMessage = new MessageObject(dataSnapshot.getKey(), creatorID, receiverID, message);
                     messageList.add(mMessage);
 
                     // scrolls down to the last message
@@ -170,57 +163,4 @@ public class ChatActivity extends AppCompatActivity {
         mChatAdapter = new MessageAdapter(messageList);
         mChat.setAdapter(mChatAdapter);
     }
-
-//    // translation feature starts here
-//    // concept1 translates the text before it sends it to the database (onsendBtn) and sends only the translated message
-//    // concept2 translates the text before it sends it to the database (onsendBtn) and sends it translated
-//    // concept3 translates the message at the receiver (who chooses their language)
-//
-//    // translation call on activity_chat layout sendBtn
-//    public void translate(View v){
-//        translateTextTextToEnglish();
-//    }
-//
-//    // calling translation function
-//    public void translateTextToEnglish() {
-//        messageInput = findViewById(R.id.messageInput);
-//        //final String text = messageInput.getText().toString();
-//    }
-//
-//    // downloading models and checking if updated
-//    public void downloadTranslatorAndTranslate() {
-//        // create an English-Spanish translator for source and target languages
-//        FirebaseTranslatorOptions options = new FirebaseTranslatorOptions.Builder()
-//                .setSourceLanguage(FirebaseTranslateLanguage.ES)
-//                .setTargetLanguage(FirebaseTranslateLanguage.EN)
-//                .build();
-//
-//        final FirebaseTranslator messengerTranslator =
-//                FirebaseNaturalLanguage.getInstance().getTranslator(options);
-//
-//        // download language models if needed
-//        FirebaseModelDownloadConditions conditions = new FirebaseModelDownloadConditions.Builder()
-//                .requireWifi()
-//                .build();
-//
-//        messengerTranslator.downloadModelIfNeeded(conditions)
-//                .addOnSuccessListener(
-//                        new OnSuccessListener<Void>() {
-//                            @Override
-//                            public void onSuccess(Void aVoid) {
-//                                Log.d("translator", "downloaded language model");
-//                                //after making sure language models are available
-//                                //perform translation
-//                                translateText(messengerTranslator);
-//                            }
-//                        }
-//                        .addOnFailureListener(new OnFailureListener() {
-//                            @Override
-//                            public void onFailure(@NonNull Exception e) {
-//                                Toast.makeText(ChatActivity.this,
-//                                        "Problem in translating",
-//                                        Toast.LENGTH_LONG).show();
-//                            }
-//                        }));
-//    }
 }

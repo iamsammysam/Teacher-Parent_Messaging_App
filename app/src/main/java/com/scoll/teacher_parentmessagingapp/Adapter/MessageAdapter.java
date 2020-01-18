@@ -42,6 +42,7 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageL
     public MessageAdapter(ArrayList<MessageObject> messageList) {
         this.messageList = messageList;
 
+        // translation feature fireBase ML kit
         FirebaseTranslatorOptions options =
                 new FirebaseTranslatorOptions.Builder()
                         .setSourceLanguage(FirebaseTranslateLanguage.EN)
@@ -56,38 +57,34 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageL
                 .build();
 
         englishSpanishTranslator.downloadModelIfNeeded(conditions)
-                .addOnSuccessListener(
-                        new OnSuccessListener<Void>() {
-                            @Override
-                            public void onSuccess(Void v) {
-                                // Model downloaded successfully. Okay to start translating.
-                            }
-                        })
-                .addOnFailureListener(
-                        new OnFailureListener() {
-                            @Override
-                            public void onFailure(@NonNull Exception e) {
-                                // Model couldn’t be downloaded or other internal error.
-                            }
-                        });
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void v) {
+                        // Model downloaded successfully. Okay to start translating.
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        // Model couldn’t be downloaded or other internal error.
+                    }
+                });
     }
 
     public void translate(final String message, final MessageListViewHolder holder) {
         englishSpanishTranslator.translate(message)
-                .addOnSuccessListener(
-                        new OnSuccessListener<String>() {
-                            @Override
-                            public void onSuccess(@NonNull String messageTranslation) {
-                                holder.mMessage.setText(messageTranslation);
-                            }
-                        })
-                .addOnFailureListener(
-                        new OnFailureListener() {
-                            @Override
-                            public void onFailure(@NonNull Exception e) {
-                                holder.mMessageTranslation.setText(e.getMessage());
-                            }
-                        });
+                .addOnSuccessListener(new OnSuccessListener<String>() {
+                    @Override
+                    public void onSuccess(@NonNull String messageTranslation) {
+                        holder.mMessage.setText(messageTranslation);
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        holder.mMessage.setText(e.getMessage());
+                    }
+                });
 
     }
 
@@ -111,10 +108,8 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageL
         holder.mMessage.setText(messageList.get(position).getMessage());
         holder.mSender.setText(messageList.get(position).getSenderId());
 
-//        translate(messageList.get(position).getMessage(), holder);
+        // calling the translate function on messageList
         translate(messageList.get(position).getMessage(), holder);
-        //holder.mReceiver.setText(messageList.get(position).getReceiverId());
-        //holder.mMessageTime.setText((CharSequence)messageList.get(position));
     }
 
     @Override
@@ -123,13 +118,12 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageL
     }
 
     public class MessageListViewHolder extends RecyclerView.ViewHolder {
-        public TextView mMessage, mSender, mMessageTranslation;
+        public TextView mMessage, mSender;
         public RelativeLayout mItemLayout;
 
         public MessageListViewHolder(View itemView) {
             super(itemView);
             mMessage = itemView.findViewById(R.id.message);
-            mMessageTranslation = itemView.findViewById(R.id.messageTranslation);
             mSender = itemView.findViewById(R.id.sender);
             //mReceiver = itemView.findViewById(R.id.receiver);
             //mMessageTime = view.findViewById(R.id.messageTime);
