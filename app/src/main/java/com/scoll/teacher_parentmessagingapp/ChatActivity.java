@@ -37,30 +37,28 @@ import java.util.Map;
 public class ChatActivity extends AppCompatActivity {
 
     // variables
-    private RecyclerView mChat;
-    private RecyclerView.Adapter mChatAdapter;
-    private RecyclerView.LayoutManager mChatLayoutManager;
+    private RecyclerView Chat;
+    private RecyclerView.Adapter ChatAdapter;
+    private RecyclerView.LayoutManager ChatLayoutManager;
 
     ArrayList<MessageObject> messageList;
+    FirebaseTranslator englishSpanishTranslator;
     String chatID;
 
     EditText messageInput;
-    //TextView messageTranslation;
+    TextView messageTranslation;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chat);
 
-        messageInput = findViewById(R.id.messageInput);
-        //messageTranslation = findViewById(R.id.messageTranslation);
-
         // initializing chatID
         chatID = getIntent().getExtras().getString("chatID");
 
         // initialing the sendBtn message button
-        Button mSendBtn = findViewById(R.id.sendBtn);
-        mSendBtn.setOnClickListener(new View.OnClickListener() {
+        Button SendBtn = findViewById(R.id.sendBtn);
+        SendBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 sendMessage();
@@ -89,13 +87,61 @@ public class ChatActivity extends AppCompatActivity {
             Map newMessageMap = new HashMap<>();
             newMessageMap.put("message", messageInput.getText().toString());
             newMessageMap.put("creatorId", FirebaseAuth.getInstance().getUid());
-            //newMessageMap.put("translation", messageTranslation.getText().toString());
 
             newMessageDB.updateChildren(newMessageMap);
         }
         //clearing the editText field
         messageInput.setText(null);
     }
+
+    // trial to translate the message from the DB... not workinf
+//    // translation feature fireBase ML kit
+//    public void downloadTranslatorAndTranslate() {
+//        FirebaseTranslatorOptions options =
+//                new FirebaseTranslatorOptions.Builder()
+//                        .setSourceLanguage(FirebaseTranslateLanguage.EN)
+//                        .setTargetLanguage(FirebaseTranslateLanguage.ES)
+//                        .build();
+//
+//        englishSpanishTranslator = FirebaseNaturalLanguage.getInstance().getTranslator(options);
+//
+//        //download models if needed
+//        FirebaseModelDownloadConditions conditions = new FirebaseModelDownloadConditions.Builder()
+//                .requireWifi()
+//                .build();
+//
+//        englishSpanishTranslator.downloadModelIfNeeded(conditions)
+//                .addOnSuccessListener(new OnSuccessListener<Void>() {
+//                    @Override
+//                    public void onSuccess(Void v) {
+//                        // Model downloaded successfully. Okay to start translating.
+//                    }
+//                })
+//                .addOnFailureListener(new OnFailureListener() {
+//                    @Override
+//                    public void onFailure(@NonNull Exception e) {
+//                        // Model couldn't be downloaded or other internal error.
+//                    }
+//                });
+//
+//    }
+//
+//    public void translate(final String message){
+//        englishSpanishTranslator.translate(message)
+//                .addOnSuccessListener(new OnSuccessListener<String>() {
+//                    @Override
+//                    public void onSuccess(@NonNull String translatedText) {
+//                        message.setText(translatedText);
+//                    }
+//                })
+//                .addOnFailureListener(new OnFailureListener() {
+//                    @Override
+//                    public void onFailure(@NonNull Exception e) {
+//                        message.setText(e.getMessage());
+//                    }
+//                });
+//    }
+
 
     // displaying messages from the FireBase DB
     private void getChatMessages() {
@@ -104,11 +150,14 @@ public class ChatActivity extends AppCompatActivity {
 
             // onChildAdded will get all the "children" in the DB, when we add a child it will be called again
             public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+
                 if (dataSnapshot.exists()) {
                     String message = "";
                     String creatorID = "";
                     String receiverID = "";
                     // String messageTime = "";
+
+                    // translate here???
 
                     // if its null the app will crash
                     if (dataSnapshot.child("message").getValue() != null)
@@ -127,10 +176,10 @@ public class ChatActivity extends AppCompatActivity {
                     messageList.add(mMessage);
 
                     // scrolls down to the last message
-                    mChatLayoutManager.scrollToPosition(messageList.size() - 1);
+                    ChatLayoutManager.scrollToPosition(messageList.size() - 1);
 
                     // updates mChatAdapter and notifies that something changed
-                    mChatAdapter.notifyDataSetChanged();
+                    ChatAdapter.notifyDataSetChanged();
                 }
             }
 
@@ -154,13 +203,13 @@ public class ChatActivity extends AppCompatActivity {
 
     // function to initialize RecyclerView
     private void initializeRecyclerView() {
-        mChat = findViewById(R.id.messageList);
-        mChat.setNestedScrollingEnabled(false);
-        mChat.setHasFixedSize(false);
+        Chat = findViewById(R.id.messageList);
+        Chat.setNestedScrollingEnabled(false);
+        Chat.setHasFixedSize(false);
 
-        mChatLayoutManager = new LinearLayoutManager(getApplicationContext(), RecyclerView.VERTICAL, false);
-        mChat.setLayoutManager(mChatLayoutManager);
-        mChatAdapter = new MessageAdapter(messageList);
-        mChat.setAdapter(mChatAdapter);
+        ChatLayoutManager = new LinearLayoutManager(getApplicationContext(), RecyclerView.VERTICAL, false);
+        Chat.setLayoutManager(ChatLayoutManager);
+        ChatAdapter = new MessageAdapter(messageList);
+        Chat.setAdapter(ChatAdapter);
     }
 }
