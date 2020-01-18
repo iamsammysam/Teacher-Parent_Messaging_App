@@ -7,14 +7,15 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
@@ -42,19 +43,20 @@ public class ChatActivity extends AppCompatActivity {
 
     ArrayList<MessageObject> messageList;
     String chatID;
-    EditText mMessageInput;
-    TextView mMessage;
-    Task<String> mMessageTranslation;
-    DatabaseReference mUser;
+
+    EditText messageInput;
+    TextView messageTranslation;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chat);
 
+        messageInput = findViewById(R.id.messageInput);
+        messageTranslation = findViewById(R.id.messageTranslation);
+
         // initializing chatID
         chatID = getIntent().getExtras().getString("chatID");
-        DatabaseReference mUser;
 
         // initialing the sendBtn message button
         Button mSendBtn = findViewById(R.id.sendBtn);
@@ -76,23 +78,24 @@ public class ChatActivity extends AppCompatActivity {
     // sendMessage function
     private void sendMessage() {
         // grabs the EditText
-        mMessageInput = findViewById(R.id.messageInput);
+        messageInput = findViewById(R.id.messageInput);
+        messageTranslation = findViewById(R.id.messageTranslation);
 
-        if (!mMessageInput.getText().toString().isEmpty()) {
+        if (!messageInput.getText().toString().isEmpty()) {
             // getting the messageId variable from the ChatListAdapter
             // database reference - goes into chat and chatId and pushes to create a new message
             DatabaseReference newMessageDB = FirebaseDatabase.getInstance().getReference().child("chat").child(chatID).push();
 
             // sends message content on activity_chat layout to the database
             Map newMessageMap = new HashMap<>();
-            newMessageMap.put("message", mMessageInput.getText().toString());
+            newMessageMap.put("message", messageInput.getText().toString());
             newMessageMap.put("creatorId", FirebaseAuth.getInstance().getUid());
-            newMessageMap.put("translation", mMessageTranslation.getResult());
+            //newMessageMap.put("translation", messageTranslation.getText().toString());
 
             newMessageDB.updateChildren(newMessageMap);
         }
         //clearing the editText field
-        mMessageInput.setText(null);
+        messageInput.setText(null);
     }
 
     // displaying messages from the FireBase DB
@@ -112,6 +115,8 @@ public class ChatActivity extends AppCompatActivity {
                     // if its null the app will crash
                     if (dataSnapshot.child("message").getValue() != null)
                         message = dataSnapshot.child("message").getValue().toString();
+
+                    // translate here????
 
                     if (dataSnapshot.child("translation").getValue() != null)
                         translation = dataSnapshot.child("translation").getValue().toString();
@@ -166,50 +171,56 @@ public class ChatActivity extends AppCompatActivity {
         mChat.setAdapter(mChatAdapter);
     }
 
-    // Translation feature
-    // Create an English-Spanish translator:
-    FirebaseTranslatorOptions options = new FirebaseTranslatorOptions.Builder()
-            .setSourceLanguage(FirebaseTranslateLanguage.EN)
-            .setTargetLanguage(FirebaseTranslateLanguage.ES)
-            .build();
-
-    final FirebaseTranslator englishSpanishTranslator = FirebaseNaturalLanguage.getInstance().getTranslator(options);
-
-    FirebaseModelDownloadConditions conditions = new FirebaseModelDownloadConditions.Builder()
-            .requireWifi()
-            .build();
-
-    // checking model download
-    public void downloadModelIfNeeded(){
-        englishSpanishTranslator.downloadModelIfNeeded(conditions).addOnSuccessListener(new OnSuccessListener<Void>() {
-            @Override
-            public void onSuccess(Void v) {
-                translate();
-            }
-        }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
-                // Model couldn’t be downloaded or other internal error.
-            }
-        });
-    }
-
-    // calling translation function
-    public void translate() {
-        mMessage = findViewById(R.id.message);
-        final String text = mMessage.getText().toString();
-
-        englishSpanishTranslator.translate(text).addOnSuccessListener(new OnSuccessListener<String>() {
-            @Override
-            public void onSuccess(@NonNull String translatedText) {
-                mMessageTranslation = englishSpanishTranslator.translate(text);
-            }
-
-        }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
-
-            }
-        });
-    }
+//    // translation feature starts here
+//    // concept1 translates the text before it sends it to the database (onsendBtn) and sends only the translated message
+//    // concept2 translates the text before it sends it to the database (onsendBtn) and sends it translated
+//    // concept3 translates the message at the receiver (who chooses their language)
+//
+//    // translation call on activity_chat layout sendBtn
+//    public void translate(View v){
+//        translateTextTextToEnglish();
+//    }
+//
+//    // calling translation function
+//    public void translateTextToEnglish() {
+//        messageInput = findViewById(R.id.messageInput);
+//        //final String text = messageInput.getText().toString();
+//    }
+//
+//    // downloading models and checking if updated
+//    public void downloadTranslatorAndTranslate() {
+//        // create an English-Spanish translator for source and target languages
+//        FirebaseTranslatorOptions options = new FirebaseTranslatorOptions.Builder()
+//                .setSourceLanguage(FirebaseTranslateLanguage.ES)
+//                .setTargetLanguage(FirebaseTranslateLanguage.EN)
+//                .build();
+//
+//        final FirebaseTranslator messengerTranslator =
+//                FirebaseNaturalLanguage.getInstance().getTranslator(options);
+//
+//        // download language models if needed
+//        FirebaseModelDownloadConditions conditions = new FirebaseModelDownloadConditions.Builder()
+//                .requireWifi()
+//                .build();
+//
+//        messengerTranslator.downloadModelIfNeeded(conditions)
+//                .addOnSuccessListener(
+//                        new OnSuccessListener<Void>() {
+//                            @Override
+//                            public void onSuccess(Void aVoid) {
+//                                Log.d("translator", "downloaded language model");
+//                                //after making sure language models are available
+//                                //perform translation
+//                                translateText(messengerTranslator);
+//                            }
+//                        }
+//                        .addOnFailureListener(new OnFailureListener() {
+//                            @Override
+//                            public void onFailure(@NonNull Exception e) {
+//                                Toast.makeText(ChatActivity.this,
+//                                        "Problem in translating",
+//                                        Toast.LENGTH_LONG).show();
+//                            }
+//                        }));
+//    }
 }

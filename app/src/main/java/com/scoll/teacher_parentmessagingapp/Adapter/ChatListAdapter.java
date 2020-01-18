@@ -13,6 +13,13 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.ml.common.modeldownload.FirebaseModelDownloadConditions;
+import com.google.firebase.ml.naturallanguage.FirebaseNaturalLanguage;
+import com.google.firebase.ml.naturallanguage.translate.FirebaseTranslateLanguage;
+import com.google.firebase.ml.naturallanguage.translate.FirebaseTranslator;
+import com.google.firebase.ml.naturallanguage.translate.FirebaseTranslatorOptions;
 import com.scoll.teacher_parentmessagingapp.ChatActivity;
 import com.scoll.teacher_parentmessagingapp.Model.ChatObject;
 import com.scoll.teacher_parentmessagingapp.R;

@@ -13,18 +13,26 @@ import android.Manifest;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.ml.common.modeldownload.FirebaseModelDownloadConditions;
+import com.google.firebase.ml.naturallanguage.FirebaseNaturalLanguage;
+import com.google.firebase.ml.naturallanguage.translate.FirebaseTranslateLanguage;
+import com.google.firebase.ml.naturallanguage.translate.FirebaseTranslator;
+import com.google.firebase.ml.naturallanguage.translate.FirebaseTranslatorOptions;
 import com.scoll.teacher_parentmessagingapp.Adapter.ChatListAdapter;
 import com.scoll.teacher_parentmessagingapp.Model.ChatObject;
 
@@ -63,25 +71,26 @@ public class MainActivity extends AppCompatActivity {
         mFindUser.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-               startActivity(new Intent(getApplicationContext(), Main3Activity.class));
+                startActivity(new Intent(getApplicationContext(), Main3Activity.class));
             }
         });
 
         getPermissions();
         initializeRecyclerView();
         getUserChatList();
+        //downloadTranslatorAndTranslate();
     }
 
-    private void getUserChatList(){
+    private void getUserChatList() {
         // listener
         // Log.e("MainActivity", "contacts");
         referenceDB.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                if(dataSnapshot.exists()){
+                if (dataSnapshot.exists()) {
 
                     // loops through the chat ids
-                    for (DataSnapshot childSnapshot : dataSnapshot.getChildren()){
+                    for (DataSnapshot childSnapshot : dataSnapshot.getChildren()) {
 
                         // creating a chatObject
                         ChatObject mChat = new ChatObject(childSnapshot.getKey());
@@ -94,15 +103,16 @@ public class MainActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) { }
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+            }
         });
     }
 
     // getting permission to read contact list from phone
     @RequiresApi(api = Build.VERSION_CODES.M)
     private void getPermissions() {
-        requestPermissions(new String[] {
-            Manifest.permission.WRITE_CONTACTS, Manifest.permission.READ_CONTACTS}, 1);
+        requestPermissions(new String[]{
+                Manifest.permission.WRITE_CONTACTS, Manifest.permission.READ_CONTACTS}, 1);
     }
 
     //function to initialize menu.xml
@@ -114,7 +124,7 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        switch(item.getItemId()){
+        switch (item.getItemId()) {
             case R.id.logout:
                 firebaseUser.signOut();
 
@@ -138,5 +148,24 @@ public class MainActivity extends AppCompatActivity {
         mChatList.setLayoutManager(mChatListLayoutManager);
         mChatListAdapter = new ChatListAdapter(chatList);
         mChatList.setAdapter(mChatListAdapter);
+    }
+
+    public void translate(FirebaseTranslator englishSpanishTranslator, final String text) {
+        englishSpanishTranslator.translate(text)
+                .addOnSuccessListener(
+                        new OnSuccessListener<String>() {
+                            @Override
+                            public void onSuccess(@NonNull String translatedText) {
+                                Log.d("translate", translatedText);
+                            }
+                        })
+                .addOnFailureListener(
+                        new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+                                // Error.
+                            }
+                        });
+
     }
 }

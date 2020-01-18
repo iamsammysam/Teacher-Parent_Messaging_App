@@ -20,21 +20,21 @@
         android:background="@drawable/background_right"
         android:layout_alignParentRight="true" />
 
-    <TextView
-        android:text="Translation"
-        android:id="@+id/messageTranslation"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/message"
-        android:layout_alignParentRight="true"
-        android:layout_marginLeft="59dp"
-        android:layout_marginTop="@dimen/activity_vertical_margin"
-        android:layout_marginBottom="-38dp"
-        android:background="@drawable/background_right"
-        android:padding="8dp"
-        android:textColor="#ffff"
-        android:textSize="18dp"
-        android:textStyle="bold" />
+<!--    <TextView-->
+<!--        android:text="Translation"-->
+<!--        android:id="@+id/messageTranslation"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_alignBottom="@+id/message"-->
+<!--        android:layout_alignParentRight="true"-->
+<!--        android:layout_marginLeft="59dp"-->
+<!--        android:layout_marginTop="@dimen/activity_vertical_margin"-->
+<!--        android:layout_marginBottom="-38dp"-->
+<!--        android:background="@drawable/background_right"-->
+<!--        android:padding="8dp"-->
+<!--        android:textColor="#ffff"-->
+<!--        android:textSize="18dp"-->
+<!--        android:textStyle="bold" />-->
 
     <TextView
         android:text="Sender"
@@ -47,13 +47,13 @@
         android:layout_alignParentRight="true"
         android:background="@drawable/background_right"/>
 
-    <RadioButton
-        android:id="@+id/translateBtn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:layout_marginLeft="120dp"
-        android:layout_marginTop="@dimen/activity_vertical_margin"
-        android:layout_marginRight="103dp"
-        android:text="Translate" />
+<!--    <RadioButton-->
+<!--        android:id="@+id/translateBtn"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_alignParentRight="true"-->
+<!--        android:layout_marginLeft="120dp"-->
+<!--        android:layout_marginTop="@dimen/activity_vertical_margin"-->
+<!--        android:layout_marginRight="103dp"-->
+<!--        android:text="Translate" />-->
 </RelativeLayout>

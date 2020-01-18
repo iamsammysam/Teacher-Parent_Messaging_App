@@ -42,7 +42,7 @@
         android:layout_height="wrap_content"
         android:fontFamily="@font/actor"
         android:gravity="center_horizontal"
-        android:text="Teacher-Parent Messanger"
+        android:text="Teacher-Parent Messenger"
         android:textColor="#ffffff"
         android:textSize="30sp"
         android:textStyle="bold"
