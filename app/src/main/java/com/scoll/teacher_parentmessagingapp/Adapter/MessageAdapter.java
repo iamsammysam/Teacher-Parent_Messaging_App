@@ -37,12 +37,11 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageL
 
     // initializing messageList
     ArrayList<MessageObject> messageList;
-    EditText languageInput;
 
     // constructor
-    public MessageAdapter(ArrayList<MessageObject> messageList, EditText languageInput) {
+    public MessageAdapter(ArrayList<MessageObject> messageList) {
         this.messageList = messageList;
-        this.languageInput = languageInput;
+        //this.languageInput = userLanguage;
    }
 
     public void translateText(String message, FirebaseTranslator langTranslator, final MessageListViewHolder holder) {
@@ -69,12 +68,13 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageL
         int sourceLanguage = FirebaseTranslateLanguage.languageForLanguageCode(langCode);
         int targetLanguage = 0;
 
-        //String languageInput = "spanish";
-        String languageInput = "english";
+        // How to get that from DB
+        String userLanguage = "Spanish";
+        //String userLanguage = "English";
 
-        if (languageInput.equals("spanish")){
+        if (userLanguage.equals("Spanish")){
             targetLanguage = FirebaseTranslateLanguage.ES;
-        } else if (languageInput.equals("english")){
+        } else if (userLanguage.equals("english")){
             targetLanguage = FirebaseTranslateLanguage.EN;
         }
 
@@ -112,7 +112,7 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageL
     }
 
     public String translateTextToLanguage(final String message, final MessageListViewHolder holder){
-        // identifies the language of the entered text
+        // identifies the language of the messages on the DB
         FirebaseLanguageIdentification languageIdentifier = FirebaseNaturalLanguage.getInstance().getLanguageIdentification();
 
         languageIdentifier.identifyLanguage(message)
@@ -126,7 +126,7 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageL
                                     // and translate the entered text into english
                                     downloadTranslatorAndTranslate(message, languageCode, holder);
                                 } else {
-                                   // error message: problem in identifying entered language.
+                                   // error message: language model not downloaded.
                                 }
                             }
                         })
@@ -134,7 +134,7 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageL
                         new OnFailureListener() {
                             @Override
                             public void onFailure(@NonNull Exception e) {
-                                // "Problem in identifying language of the text entered",
+                                // error message: language not identified.
                             }
                         });
         return message;
@@ -172,14 +172,13 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageL
     }
 
     public class MessageListViewHolder extends RecyclerView.ViewHolder {
-        public TextView message, sender, language;
+        public TextView message, sender;
         public RelativeLayout itemLayout;
 
         public MessageListViewHolder(View itemView) {
             super(itemView);
             message = itemView.findViewById(R.id.message);
             sender = itemView.findViewById(R.id.sender);
-            language = itemView.findViewById(R.id.languageInput);
             //mMessageTime = view.findViewById(R.id.messageTime);
             itemLayout = itemView.findViewById(R.id.itemLayout);
         }

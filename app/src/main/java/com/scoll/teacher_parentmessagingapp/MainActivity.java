@@ -38,8 +38,6 @@ public class MainActivity extends AppCompatActivity {
     private RecyclerView.Adapter chatListAdapter;
     private RecyclerView.LayoutManager chatListLayoutManager;
 
-    TextView username;
-    EditText languageInput;
     ArrayList<ChatObject> chatList;
     FirebaseAuth firebaseUser;
     DatabaseReference referenceDB;
@@ -56,8 +54,6 @@ public class MainActivity extends AppCompatActivity {
 
         //initializing variables
         chatList = new ArrayList<>();
-        username = findViewById(R.id.username);
-        languageInput = findViewById(R.id.languageInput);
         firebaseUser = FirebaseAuth.getInstance();
         referenceDB = FirebaseDatabase.getInstance().getReference().child("user").child(FirebaseAuth.getInstance().getUid()).child("chat");
 
@@ -70,23 +66,9 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        // initialing the sendBtn message button
-        Button languageBtn = findViewById(R.id.languageBtn);
-        languageBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                selectLanguage();
-            }
-        });
-
         getPermissions();
         initializeRecyclerView();
         getUserChatList();
-    }
-
-    // select chat language
-    private void selectLanguage(){
-        languageInput = findViewById(R.id.languageInput);
     }
 
     private void getUserChatList() {

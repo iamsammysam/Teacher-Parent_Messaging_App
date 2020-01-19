@@ -35,7 +35,10 @@ import java.util.concurrent.TimeUnit;
 
 public class LoginActivity extends AppCompatActivity {
 
-    private EditText phoneNumber, verificationCode;
+    private EditText phoneNumber;
+    private EditText verificationCode;
+    private EditText username;
+    private EditText userLanguage;
     private Button sendCode;
     private PhoneAuthProvider.OnVerificationStateChangedCallbacks callbacks;
 
@@ -53,6 +56,8 @@ public class LoginActivity extends AppCompatActivity {
         userIsLoggedIn();
 
         phoneNumber = findViewById(R.id.phoneNumber);
+        username = findViewById(R.id.username);
+        userLanguage = findViewById(R.id.language);
         verificationCode = findViewById(R.id.verificationCode);
         sendCode = findViewById(R.id.sendCode);
 
@@ -134,7 +139,8 @@ public class LoginActivity extends AppCompatActivity {
                                 if(!dataSnapshot.exists()){
                                     Map<String, Object>userMap = new HashMap<>();
                                     userMap.put("phoneNumber", user.getPhoneNumber());
-                                    userMap.put("username", user.getPhoneNumber());
+                                    userMap.put("username", username.getText().toString());
+                                    userMap.put("language", userLanguage.getText().toString());
 
                                     // sends the data off to the DB inside the user
                                     mUserDB.updateChildren(userMap);

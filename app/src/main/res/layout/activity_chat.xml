@@ -26,58 +26,22 @@
             app:popupTheme="@style/MenuStyle">
 
 
-            <EditText
-                android:id="@+id/languageInput"
+            <TextView
+                android:id="@+id/username"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:hint="Choose language"
+                android:padding="10dp"
+                android:text="Username"
                 android:textColor="#ffff"
                 android:textColorHint="#ffff"
+                android:textSize="20dp"
+                android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.592"
+                app:layout_constraintHorizontal_bias="0.946"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.384" />
-
-            <Button
-                android:id="@+id/languageBtn"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/languageInput"
-                app:layout_constraintTop_toTopOf="parent" />
-
-
-            <!--           <Spinner-->
-            <!--               android:id="@+id/sourceLangSelector"-->
-            <!--               android:layout_width="wrap_content"-->
-            <!--               android:layout_height="wrap_content"-->
-            <!--               app:layout_constraintBottom_toBottomOf="parent"-->
-            <!--               app:layout_constraintEnd_toStartOf="@+id/buttonSwitchLang"-->
-            <!--               app:layout_constraintStart_toStartOf="parent"-->
-            <!--               app:layout_constraintTop_toTopOf="parent" />-->
-
-            <!--           <Button-->
-            <!--               android:id="@+id/buttonSwitchLang"-->
-            <!--               android:layout_width="wrap_content"-->
-            <!--               android:layout_height="wrap_content"-->
-            <!--               android:text="switch"-->
-            <!--               app:layout_constraintBottom_toBottomOf="parent"-->
-            <!--               app:layout_constraintEnd_toEndOf="parent"-->
-            <!--               app:layout_constraintStart_toStartOf="parent"-->
-            <!--               app:layout_constraintTop_toTopOf="parent" />-->
-
-            <!--           <Spinner-->
-            <!--               android:id="@+id/targetLangSelector"-->
-            <!--               android:layout_width="wrap_content"-->
-            <!--               android:layout_height="wrap_content"-->
-            <!--               android:text="language1"-->
-            <!--               app:layout_constraintBottom_toBottomOf="parent"-->
-            <!--               app:layout_constraintEnd_toEndOf="parent"-->
-            <!--               app:layout_constraintStart_toEndOf="@+id/buttonSwitchLang"-->
-            <!--               app:layout_constraintTop_toTopOf="parent" />-->
+                app:layout_constraintVertical_bias="1.0" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </com.google.android.material.appbar.AppBarLayout>
 

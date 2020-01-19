@@ -62,7 +62,7 @@ public class UserListActivity extends AppCompatActivity {
             phoneNumber = phoneNumber.replace("(", "");
             phoneNumber = phoneNumber.replace(")", "");
 
-            UserObject mContact = new UserObject("",name, phoneNumber);
+            UserObject mContact = new UserObject("", name, phoneNumber, "");
             contactList.add(mContact);
             getUserDetails(mContact);
         }
@@ -79,6 +79,7 @@ public class UserListActivity extends AppCompatActivity {
                 if(dataSnapshot.exists()){
                     String phoneNumber = "";
                     String username = "";
+                    String language = "";
 
                     for(DataSnapshot childSnapshot : dataSnapshot.getChildren()){
                         // looks through all users and returns one user
@@ -88,16 +89,19 @@ public class UserListActivity extends AppCompatActivity {
                         if(childSnapshot.child("username").getValue()!= null)
                             username = childSnapshot.child("username").getValue().toString();
 
-                        UserObject mUser = new UserObject(childSnapshot.getKey(), username, phoneNumber);
+                        if(childSnapshot.child("language").getValue()!= null)
+                            language = childSnapshot.child("language").getValue().toString();
+
+                        UserObject user = new UserObject(childSnapshot.getKey(), username, phoneNumber, language);
                         // setting the username to name on phone contact list
                         if (username.equals(phoneNumber))
                             for (UserObject mContactIterator : contactList) {
-                                if (mContactIterator.getPhoneNumber().equals(mUser.getPhoneNumber())){
-                                    mUser.setUsername(mContactIterator.getUsername());
+                                if (mContactIterator.getPhoneNumber().equals(user.getPhoneNumber())){
+                                    user.setUsername(mContactIterator.getUsername());
                                 }
                             }
 
-                        userList.add(mUser);
+                        userList.add(user);
 
                         // updates mUserListAdapter and notifies that something changed
                         userListAdapter.notifyDataSetChanged();

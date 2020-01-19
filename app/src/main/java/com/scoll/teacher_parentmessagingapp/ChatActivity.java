@@ -36,7 +36,6 @@ public class ChatActivity extends AppCompatActivity {
     String chatID;
 
     EditText messageInput;
-    EditText languageInput;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -142,7 +141,7 @@ public class ChatActivity extends AppCompatActivity {
 
         ChatLayoutManager = new LinearLayoutManager(getApplicationContext(), RecyclerView.VERTICAL, false);
         Chat.setLayoutManager(ChatLayoutManager);
-        ChatAdapter = new MessageAdapter(messageList, languageInput);
+        ChatAdapter = new MessageAdapter(messageList);
         Chat.setAdapter(ChatAdapter);
     }
 }
