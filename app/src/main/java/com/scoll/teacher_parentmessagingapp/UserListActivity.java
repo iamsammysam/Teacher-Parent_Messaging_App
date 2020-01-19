@@ -22,12 +22,12 @@ import com.scoll.teacher_parentmessagingapp.Model.UserObject;
 
 import java.util.ArrayList;
 
-public class Main3Activity extends AppCompatActivity {
+public class UserListActivity extends AppCompatActivity {
 
     // variables
-    private RecyclerView mUserList;
-    private RecyclerView.Adapter mUserListAdapter;
-    private RecyclerView.LayoutManager mUserListLayoutManager;
+    private RecyclerView userListRecyclerView;
+    private RecyclerView.Adapter userListAdapter;
+    private RecyclerView.LayoutManager userListLayoutManager;
 
     ArrayList<UserObject> userList, contactList;
     DatabaseReference referenceDB;
@@ -100,7 +100,7 @@ public class Main3Activity extends AppCompatActivity {
                         userList.add(mUser);
 
                         // updates mUserListAdapter and notifies that something changed
-                        mUserListAdapter.notifyDataSetChanged();
+                        userListAdapter.notifyDataSetChanged();
                         return;
                     }
                 }
@@ -113,13 +113,13 @@ public class Main3Activity extends AppCompatActivity {
 
     // function to initialize RecyclerView
     private void initializeRecyclerView() {
-        mUserList = findViewById(R.id.userList);
-        mUserList.setNestedScrollingEnabled(false);
-        mUserList.setHasFixedSize(false);
+        userListRecyclerView = findViewById(R.id.userList);
+        userListRecyclerView.setNestedScrollingEnabled(false);
+        userListRecyclerView.setHasFixedSize(false);
 
-        mUserListLayoutManager = new LinearLayoutManager(getApplicationContext(), RecyclerView.VERTICAL, false);
-        mUserList.setLayoutManager(mUserListLayoutManager);
-        mUserListAdapter = new UserListAdapter(userList);
-        mUserList.setAdapter(mUserListAdapter);
+        userListLayoutManager = new LinearLayoutManager(getApplicationContext(), RecyclerView.VERTICAL, false);
+        userListRecyclerView.setLayoutManager(userListLayoutManager);
+        userListAdapter = new UserListAdapter(userList);
+        userListRecyclerView.setAdapter(userListAdapter);
     }
 }

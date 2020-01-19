@@ -17,6 +17,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -33,11 +34,12 @@ import java.util.ArrayList;
 public class MainActivity extends AppCompatActivity {
 
     // variables
-    private RecyclerView mChatList;
-    private RecyclerView.Adapter mChatListAdapter;
-    private RecyclerView.LayoutManager mChatListLayoutManager;
+    private RecyclerView chatListRecyclerView;
+    private RecyclerView.Adapter chatListAdapter;
+    private RecyclerView.LayoutManager chatListLayoutManager;
 
     TextView username;
+    EditText languageInput;
     ArrayList<ChatObject> chatList;
     FirebaseAuth firebaseUser;
     DatabaseReference referenceDB;
@@ -55,6 +57,7 @@ public class MainActivity extends AppCompatActivity {
         //initializing variables
         chatList = new ArrayList<>();
         username = findViewById(R.id.username);
+        languageInput = findViewById(R.id.languageInput);
         firebaseUser = FirebaseAuth.getInstance();
         referenceDB = FirebaseDatabase.getInstance().getReference().child("user").child(FirebaseAuth.getInstance().getUid()).child("chat");
 
@@ -63,7 +66,16 @@ public class MainActivity extends AppCompatActivity {
         mFindUser.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-               startActivity(new Intent(getApplicationContext(), Main3Activity.class));
+                startActivity(new Intent(getApplicationContext(), UserListActivity.class));
+            }
+        });
+
+        // initialing the sendBtn message button
+        Button languageBtn = findViewById(R.id.languageBtn);
+        languageBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                selectLanguage();
             }
         });
 
@@ -72,37 +84,43 @@ public class MainActivity extends AppCompatActivity {
         getUserChatList();
     }
 
-    private void getUserChatList(){
+    // select chat language
+    private void selectLanguage(){
+        languageInput = findViewById(R.id.languageInput);
+    }
+
+    private void getUserChatList() {
         // listener
         // Log.e("MainActivity", "contacts");
         referenceDB.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                if(dataSnapshot.exists()){
+                if (dataSnapshot.exists()) {
 
                     // loops through the chat ids
-                    for (DataSnapshot childSnapshot : dataSnapshot.getChildren()){
+                    for (DataSnapshot childSnapshot : dataSnapshot.getChildren()) {
 
                         // creating a chatObject
                         ChatObject mChat = new ChatObject(childSnapshot.getKey());
                         chatList.add(mChat);
 
                         // updates mChatListAdapter and notifies that something changed
-                        mChatListAdapter.notifyDataSetChanged();
+                        chatListAdapter.notifyDataSetChanged();
                     }
                 }
             }
 
             @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) { }
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+            }
         });
     }
 
     // getting permission to read contact list from phone
     @RequiresApi(api = Build.VERSION_CODES.M)
     private void getPermissions() {
-        requestPermissions(new String[] {
-            Manifest.permission.WRITE_CONTACTS, Manifest.permission.READ_CONTACTS}, 1);
+        requestPermissions(new String[]{
+                Manifest.permission.WRITE_CONTACTS, Manifest.permission.READ_CONTACTS}, 1);
     }
 
     //function to initialize menu.xml
@@ -114,7 +132,7 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        switch(item.getItemId()){
+        switch (item.getItemId()) {
             case R.id.logout:
                 firebaseUser.signOut();
 
@@ -130,13 +148,13 @@ public class MainActivity extends AppCompatActivity {
 
     // function to initialize RecyclerView
     private void initializeRecyclerView() {
-        mChatList = findViewById(R.id.chatList);
-        mChatList.setNestedScrollingEnabled(false);
-        mChatList.setHasFixedSize(false);
+        chatListRecyclerView = findViewById(R.id.chatList);
+        chatListRecyclerView.setNestedScrollingEnabled(false);
+        chatListRecyclerView.setHasFixedSize(false);
 
-        mChatListLayoutManager = new LinearLayoutManager(getApplicationContext(), RecyclerView.VERTICAL, false);
-        mChatList.setLayoutManager(mChatListLayoutManager);
-        mChatListAdapter = new ChatListAdapter(chatList);
-        mChatList.setAdapter(mChatListAdapter);
+        chatListLayoutManager = new LinearLayoutManager(getApplicationContext(), RecyclerView.VERTICAL, false);
+        chatListRecyclerView.setLayoutManager(chatListLayoutManager);
+        chatListAdapter = new ChatListAdapter(chatList);
+        chatListRecyclerView.setAdapter(chatListAdapter);
     }
 }

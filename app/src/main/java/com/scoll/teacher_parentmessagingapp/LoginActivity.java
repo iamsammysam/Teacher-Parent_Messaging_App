@@ -31,11 +31,13 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
+// refactoring!!! ask for username on the login!!!
+
 public class LoginActivity extends AppCompatActivity {
 
-    private EditText mPhoneNumber, mVerificationCode;
-    private Button mSendCode;
-    private PhoneAuthProvider.OnVerificationStateChangedCallbacks mCallbacks;
+    private EditText phoneNumber, verificationCode;
+    private Button sendCode;
+    private PhoneAuthProvider.OnVerificationStateChangedCallbacks callbacks;
 
     String mVerificationId;
 
@@ -50,12 +52,12 @@ public class LoginActivity extends AppCompatActivity {
         // checking if user is already logged in before
         userIsLoggedIn();
 
-        mPhoneNumber = findViewById(R.id.phoneNumber);
-        mVerificationCode = findViewById(R.id.verificationCode);
-        mSendCode = findViewById(R.id.sendCode);
+        phoneNumber = findViewById(R.id.phoneNumber);
+        verificationCode = findViewById(R.id.verificationCode);
+        sendCode = findViewById(R.id.sendCode);
 
         // creating onclick listener for the sendCode button
-        mSendCode.setOnClickListener(new View.OnClickListener() {
+        sendCode.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (mVerificationId != null)
@@ -65,7 +67,7 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
-        mCallbacks = new PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
+        callbacks = new PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
             // when code is sent to user
             @Override
             public void onCodeSent(@NonNull String verificationId, @NonNull PhoneAuthProvider.ForceResendingToken forceResendingToken) {
@@ -73,8 +75,8 @@ public class LoginActivity extends AppCompatActivity {
 
                 mVerificationId = verificationId;
                 // changes the name of the button SendCode
-                mVerificationCode.setVisibility(View.VISIBLE);
-                mSendCode.setText("Verify Code");
+                verificationCode.setVisibility(View.VISIBLE);
+                sendCode.setText("Verify Code");
             }
 
             @Override
@@ -87,7 +89,7 @@ public class LoginActivity extends AppCompatActivity {
             // failure (if something goes wrong, ex. invalid phone number)
             public void onVerificationFailed(FirebaseException e) {
                 // this callback is invoked in an invalid request for verification is made,
-                mPhoneNumber.setError("Invalid phone number.");
+                phoneNumber.setError("Invalid phone number.");
             }
         };
     }
@@ -96,17 +98,17 @@ public class LoginActivity extends AppCompatActivity {
     // 1) making the call for the onclick listener
     private void startPhoneNumberVerification() {
         PhoneAuthProvider.getInstance().verifyPhoneNumber(
-                mPhoneNumber.getText().toString(),  // phone to verify
+                phoneNumber.getText().toString(),  // phone to verify
                 60,                              // timeout duration
                 TimeUnit.SECONDS,                  // unit of timeout
                 this,                      // activity
-                mCallbacks);
+                callbacks);
     }
 
     // 2) creating code verification function
     private void verifyPhoneNumberWithCode() {
         // creating a credential
-        PhoneAuthCredential credential = PhoneAuthProvider.getCredential(mVerificationId, mVerificationCode.getText().toString());
+        PhoneAuthCredential credential = PhoneAuthProvider.getCredential(mVerificationId, verificationCode.getText().toString());
         signInWithPhoneAuthCredential(credential);
     }
 
@@ -163,8 +165,3 @@ public class LoginActivity extends AppCompatActivity {
         }
     }
 }
-
-
-
-
-

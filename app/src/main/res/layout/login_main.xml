@@ -15,8 +15,7 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.042">
-    </com.google.android.material.appbar.AppBarLayout>
+        app:layout_constraintVertical_bias="0.042"></com.google.android.material.appbar.AppBarLayout>
 
     <EditText
         android:id="@+id/phoneNumber"
@@ -35,8 +34,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:visibility="invisible"
         android:hint="Enter Code"
+        android:visibility="invisible"
         app:layout_constraintBottom_toTopOf="@+id/sendCode"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -54,6 +53,20 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/phoneNumber"
         app:layout_constraintVertical_bias="0.218" />
+
+<!--    <EditText-->
+<!--        android:id="@+id/language"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_marginTop="40dp"-->
+<!--        android:gravity="center"-->
+<!--        android:hint="Choose language"-->
+<!--        app:layout_constraintBottom_toBottomOf="parent"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintHorizontal_bias="0.958"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toTopOf="@+id/appBarLayout"-->
+<!--        app:layout_constraintVertical_bias="0.0" />-->
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
@@ -73,7 +86,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
-            android:text="Teacher-Parent Messanger"
+            android:text="Teacher-Parent Messenger"
             android:textColor="#ffff"
             android:textSize="20dp"
             android:textStyle="bold" />
