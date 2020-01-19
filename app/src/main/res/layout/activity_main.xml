@@ -11,35 +11,48 @@
         android:id="@+id/findUser"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="92dp"
-        android:layout_marginLeft="92dp"
-        android:layout_marginTop="76dp"
-        android:layout_marginEnd="223dp"
-        android:layout_marginRight="223dp"
         android:text="USERS"
         app:layout_constraintBottom_toTopOf="@+id/textView3"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.393"
+        app:layout_constraintEnd_toStartOf="@+id/findChat"
+        app:layout_constraintHorizontal_bias="0.487"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/toolbar"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintTop_toBottomOf="@+id/toolbar"
+        app:layout_constraintVertical_bias="0.282" />
 
     <Button
         android:id="@+id/findChat"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="220dp"
-        android:layout_marginLeft="220dp"
-        android:layout_marginTop="76dp"
-        android:layout_marginEnd="98dp"
-        android:layout_marginRight="98dp"
         android:text="CHAT LIST"
         app:layout_constraintBottom_toTopOf="@+id/textView3"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.678"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintTop_toBottomOf="@+id/toolbar"
+        app:layout_constraintVertical_bias="0.282" />
+
+    <Button
+        android:id="@+id/languageBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="LANGUAGE"
+        app:layout_constraintBottom_toTopOf="@+id/textView3"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.377"
+        app:layout_constraintStart_toEndOf="@+id/findChat"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar"
+        app:layout_constraintVertical_bias="0.282" />
+
+    <EditText
+        android:id="@+id/languageInput"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:hint="Choose language"
+        android:textColor="#ffff"
+        android:textColorHint="#ffff"
+        app:layout_constraintBottom_toTopOf="@+id/textView3"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/languageBtn" />
 
     <TextView
         android:id="@+id/textView3"
@@ -57,7 +70,7 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/toolbar"
-        app:layout_constraintVertical_bias="0.189" />
+        app:layout_constraintVertical_bias="0.306" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id='@+id/chatList'
@@ -68,8 +81,7 @@
         app:layout_constraintHorizontal_bias="0.105"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView3"
-        app:layout_constraintVertical_bias="0.1">
-    </androidx.recyclerview.widget.RecyclerView>
+        app:layout_constraintVertical_bias="0.205"></androidx.recyclerview.widget.RecyclerView>
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"

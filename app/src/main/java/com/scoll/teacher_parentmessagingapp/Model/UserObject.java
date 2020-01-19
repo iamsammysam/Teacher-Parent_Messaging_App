@@ -4,8 +4,7 @@ public class UserObject {
     private String uid;
     private String username;
     private String phoneNumber;
-
-    public UserObject() {}
+    //private String language;
 
     // constructor for the userObject
     public UserObject(String uid, String username, String phoneNumber){
