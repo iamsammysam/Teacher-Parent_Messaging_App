@@ -22,7 +22,7 @@ import com.scoll.teacher_parentmessagingapp.Model.UserObject;
 
 import java.util.ArrayList;
 
-public class Main3Activity extends AppCompatActivity {
+public class UserListActivity extends AppCompatActivity {
 
     // variables
     private RecyclerView userListRecyclerView;
