@@ -17,6 +17,12 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.ml.naturallanguage.languageid.FirebaseLanguageIdentification;
 import com.google.firebase.ml.naturallanguage.translate.FirebaseTranslator;
 import com.google.firebase.ml.common.modeldownload.FirebaseModelDownloadConditions;
@@ -35,14 +41,38 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageL
     public final int MSG_TYPE_RIGHT = 0;
     public final int MSG_TYPE_LEFT = 1;
 
-    // initializing messageList
+    // initializing variables
+    String userID;
+    String userLanguage;
+    DatabaseReference referenceDB;
     ArrayList<MessageObject> messageList;
 
     // constructor
     public MessageAdapter(ArrayList<MessageObject> messageList) {
         this.messageList = messageList;
-        //this.languageInput = userLanguage;
-   }
+        languageFromDB();
+    }
+
+    public void languageFromDB(){
+        userID = FirebaseAuth.getInstance().getCurrentUser().getUid();
+        referenceDB = FirebaseDatabase.getInstance().getReference().child("user").child(userID);
+
+        Query query = referenceDB;
+        query.addListenerForSingleValueEvent(new ValueEventListener() {
+
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                //String userlanguage = "";
+
+                if (dataSnapshot.child("language").getValue() != null)
+                    userLanguage = dataSnapshot.child("language").getValue().toString();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+            }
+        });
+    }
 
     public void translateText(String message, FirebaseTranslator langTranslator, final MessageListViewHolder holder) {
         // translate source text to language defined by user
@@ -65,16 +95,20 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageL
 
     public void downloadTranslatorAndTranslate(final String message, String langCode, final MessageListViewHolder holder) {
         // get source language id from bcp code
-        int sourceLanguage = FirebaseTranslateLanguage.languageForLanguageCode(langCode);
+        //int sourceLanguage = FirebaseTranslateLanguage.languageForLanguageCode(langCode);
+        int sourceLanguage = 0;
         int targetLanguage = 0;
 
         // How to get that from DB
-        String userLanguage = "Spanish";
+        //String userLanguage = "Spanish";
         //String userLanguage = "English";
 
         if (userLanguage.equals("Spanish")){
+            sourceLanguage = FirebaseTranslateLanguage.EN;
             targetLanguage = FirebaseTranslateLanguage.ES;
-        } else if (userLanguage.equals("english")){
+
+        } else if (userLanguage.equals("English")){
+            sourceLanguage = FirebaseTranslateLanguage.ES;
             targetLanguage = FirebaseTranslateLanguage.EN;
         }
 
