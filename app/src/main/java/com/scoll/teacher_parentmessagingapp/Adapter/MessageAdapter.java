@@ -158,7 +158,7 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageL
     @Override
     public void onBindViewHolder(@NonNull MessageListViewHolder holder, int position) {
         holder.message.setText(messageList.get(position).getMessage());
-        holder.sender.setText(messageList.get(position).getSenderId());
+        holder.sender.setText(messageList.get(position).getSenderUsername());
 
         translateTextToLanguage(messageList.get(position).getMessage(), holder);
 
