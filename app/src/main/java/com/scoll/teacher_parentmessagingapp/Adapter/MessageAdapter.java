@@ -95,24 +95,20 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageL
 
     public void downloadTranslatorAndTranslate(final String message, String langCode, final MessageListViewHolder holder) {
         // get source language id from bcp code
-        //int sourceLanguage = FirebaseTranslateLanguage.languageForLanguageCode(langCode);
-        int sourceLanguage = 0;
+        int sourceLanguage = FirebaseTranslateLanguage.languageForLanguageCode(langCode);
         int targetLanguage = 0;
 
-        // How to get that from DB
-        //String userLanguage = "Spanish";
-        //String userLanguage = "English";
-
         if (userLanguage.equals("Spanish")){
-            sourceLanguage = FirebaseTranslateLanguage.EN;
             targetLanguage = FirebaseTranslateLanguage.ES;
 
         } else if (userLanguage.equals("English")){
-            sourceLanguage = FirebaseTranslateLanguage.ES;
             targetLanguage = FirebaseTranslateLanguage.EN;
+
+        } else if (userLanguage.equals("Korean")){
+            targetLanguage = FirebaseTranslateLanguage.KO;
         }
 
-        // create translator for source and target languages
+    // create translator for source and target languages
         FirebaseTranslatorOptions options =
                 new FirebaseTranslatorOptions.Builder()
                         .setSourceLanguage(sourceLanguage)
@@ -177,7 +173,6 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageL
     @NonNull
     @Override
     public MessageListViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-
         // making the call for the item_chat (depending on the firebaseUser position)
         if (viewType == MSG_TYPE_LEFT) {
             View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_message_left, null, false);
