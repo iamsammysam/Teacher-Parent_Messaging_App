@@ -10,7 +10,8 @@ The idea of creating a Teacher/Parent Communication App came to reach effectivel
 ### MVP Feature Set
 
 1.  Instant messaging feature
-    - User authorization via phone number or QRcode.
+    - User authorization via phone number.
+    - Provides identification of contact list numbers that are also app users.
     - Provides option for private and group chats.
     - All messages show a “message status” (delivered/failed/seen/edited).
     - Chat histories sent by users are stored so they can be accessed anytime.
