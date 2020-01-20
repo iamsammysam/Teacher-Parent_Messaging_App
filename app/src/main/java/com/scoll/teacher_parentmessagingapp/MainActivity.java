@@ -78,12 +78,13 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if (dataSnapshot.exists()) {
+                    String title = "Chat Mr.Teacher - Mrs.Parent";
 
                     // loops through the chat ids
                     for (DataSnapshot childSnapshot : dataSnapshot.getChildren()) {
 
                         // creating a chatObject
-                        ChatObject mChat = new ChatObject(childSnapshot.getKey());
+                        ChatObject mChat = new ChatObject(childSnapshot.getKey(), title);
                         chatList.add(mChat);
 
                         // updates mChatListAdapter and notifies that something changed

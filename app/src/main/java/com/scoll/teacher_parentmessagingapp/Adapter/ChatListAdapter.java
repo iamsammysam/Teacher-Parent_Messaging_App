@@ -53,7 +53,8 @@ public class ChatListAdapter extends RecyclerView.Adapter<ChatListAdapter.ChatLi
     @Override
     public void onBindViewHolder(@NonNull final ChatListViewHolder holder, final int position) {
         // grabs the position we need on the array chatList e displays it
-        holder.mTitle.setText(chatList.get(position).getChatId());
+        // holder.mTitle.setText(chatList.get(position).getChatId());
+        holder.mTitle.setText(chatList.get(position).getTitle());
 
         // on click listener for when user clicks on a chat, goes to messaging on ChatActivity
         holder.mItemLayout.setOnClickListener(new View.OnClickListener() {
