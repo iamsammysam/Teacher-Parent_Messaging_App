@@ -8,15 +8,17 @@ public class MessageObject {
     private String creatorId;
     private String username;
     private String language;
+    private String translation;
     // private long messageTime;
 
 
     // constructor for the chatObject
-    public MessageObject(String messageId, String creatorId, String creatorUsername, String message, String language){
+    public MessageObject(String messageId, String creatorId, String creatorUsername, String message, String language, String translation){
         this.message = message;
         this.messageId = messageId;
         this.creatorId = creatorId;
         this.language = language;
+        this.translation = translation;
         this.username = creatorUsername;
 
         // Initialize to current time
@@ -28,6 +30,7 @@ public class MessageObject {
     public String getMessageId() {return messageId;}
     public String getSenderId() {return creatorId;}
     public String getLanguage() {return language;}
+    public String getTranslation() { return translation; }
     public String getSenderUsername() {return username;}
 
     // public long getMessageTime() {return messageTime;}

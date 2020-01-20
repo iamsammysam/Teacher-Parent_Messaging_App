@@ -46,6 +46,7 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageL
     String userLanguage;
     DatabaseReference referenceDB;
     ArrayList<MessageObject> messageList;
+    //ArrayList<MessageObject> translationList;
 
     // constructor
     public MessageAdapter(ArrayList<MessageObject> messageList) {
@@ -189,7 +190,8 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageL
         holder.message.setText(messageList.get(position).getMessage());
         holder.sender.setText(messageList.get(position).getSenderUsername());
 
-        translateTextToLanguage(messageList.get(position).getMessage(), holder);
+        //String translation = (translateTextToLanguage(messageList.get(position).getMessage(), holder));
+        //translationlist.add(translation);
 
         // check if I can save this translation on the DB and keep translating only the last message
         // String translation = translateTextToLanguage(messageList.get(position).getMessage(), holder);
