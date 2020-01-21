@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
     android:layout_alignParentRight="true"
     android:layout_alignParentLeft="true"
     android:id="@+id/itemLayout"
@@ -31,4 +31,20 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/sender"
         android:background="@drawable/background_left"/>
+
+    <TextView
+        android:text="Translation"
+        android:id="@+id/translatedText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@+id/message"
+        android:layout_alignParentLeft="true"
+        android:padding="4dp"
+        android:layout_below="@id/message"
+        android:textColor="#ffff"
+        android:textSize="16dp"
+        android:textStyle="bold"
+        android:background="@drawable/background_left_text"/>
+=======
+>>>>>>> master
 </RelativeLayout>

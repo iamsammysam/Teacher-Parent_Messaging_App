@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
     android:layout_alignParentRight="true"
     android:layout_alignParentLeft="true"
     android:id="@+id/itemLayout"
@@ -26,9 +26,27 @@
         android:textSize="16dp"
         android:padding="4dp"
         android:id="@+id/message"
-        android:layout_below="@id/sender"
         android:layout_alignParentRight="true"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_below="@id/sender"
+        android:background="@drawable/background_right"
+        android:layout_toLeftOf="@+id/sender" />
+
+    <TextView
+        android:text="Translation"
+        android:textColor="#ffff"
+        android:textStyle="bold"
+        android:textSize="16dp"
+        android:padding="4dp"
+        android:layout_below="@id/message"
+        android:id="@+id/translatedText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:background="@drawable/background_right_text"
+        android:layout_toLeftOf="@+id/message"/>
+=======
         android:background="@drawable/background_right"/>
+>>>>>>> master
 </RelativeLayout>

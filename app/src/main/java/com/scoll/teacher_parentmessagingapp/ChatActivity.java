@@ -7,13 +7,15 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -21,15 +23,22 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.ml.common.modeldownload.FirebaseModelDownloadConditions;
+import com.google.firebase.ml.naturallanguage.FirebaseNaturalLanguage;
+import com.google.firebase.ml.naturallanguage.languageid.FirebaseLanguageIdentification;
+import com.google.firebase.ml.naturallanguage.translate.FirebaseTranslateLanguage;
 import com.google.firebase.ml.naturallanguage.translate.FirebaseTranslator;
+import com.google.firebase.ml.naturallanguage.translate.FirebaseTranslatorOptions;
 import com.scoll.teacher_parentmessagingapp.Adapter.MessageAdapter;
 import com.scoll.teacher_parentmessagingapp.Model.MessageObject;
 import com.scoll.teacher_parentmessagingapp.Model.UserObject;
-import com.scoll.teacher_parentmessagingapp.R;
+
+import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.TimeUnit;
 
 public class ChatActivity extends AppCompatActivity {
 
@@ -40,9 +49,13 @@ public class ChatActivity extends AppCompatActivity {
 
     DatabaseReference referenceDB;
     ArrayList<MessageObject> messageList;
-    EditText messageInput;
+
+    //ArrayList<MessageObject> translationList;
+    String userLanguage;
     String chatID;
     String userID;
+    String messageTranslation;
+    EditText messageInput;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,7 +70,12 @@ public class ChatActivity extends AppCompatActivity {
         SendBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                sendMessage();
+
+                languageFromDB();
+
+                messageInput = findViewById(R.id.messageInput);
+                String message = messageInput.getText().toString();
+                translateTextToLanguage(message);
             }
         });
 
@@ -69,12 +87,7 @@ public class ChatActivity extends AppCompatActivity {
         getChatMessages();
     }
 
-    // sendMessage function
-    private void sendMessage() {
-        // grabs the EditText
-        messageInput = findViewById(R.id.messageInput);
-
-        // fetching data from DB (reference to database)
+    public void languageFromDB(){
         userID = FirebaseAuth.getInstance().getCurrentUser().getUid();
         referenceDB = FirebaseDatabase.getInstance().getReference().child("user").child(userID);
 
@@ -83,39 +96,171 @@ public class ChatActivity extends AppCompatActivity {
 
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                String username = "";
-                String language = "";
-
-                if (dataSnapshot.child("username").getValue() != null)
-                    username = dataSnapshot.child("username").getValue().toString();
-
                 if (dataSnapshot.child("language").getValue() != null)
-                    language = dataSnapshot.child("language").getValue().toString();
-
-                if (!messageInput.getText().toString().isEmpty()) {
-                    // database reference - goes into chat and chatId and pushes to create a new message
-                    DatabaseReference newMessageDB = FirebaseDatabase.getInstance().getReference().child("chat").child(chatID).push();
-
-                    // sends message content on activity_chat layout to the database
-                    Map newMessageMap = new HashMap<>();
-                    newMessageMap.put("message", messageInput.getText().toString());
-                    newMessageMap.put("creatorId", FirebaseAuth.getInstance().getUid());
-                    newMessageMap.put("username", username);
-                    newMessageMap.put("language", language);
-
-                    newMessageDB.updateChildren(newMessageMap);
-                }
-
-                //clearing the editText field
-                messageInput.setText(null);
+                    userLanguage = dataSnapshot.child("language").getValue().toString();
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
-
             }
         });
     }
+
+    public void translateText(final String message, final FirebaseTranslator langTranslator) {
+        // translate source text to language defined by user
+        langTranslator.translate(message)
+                    .addOnSuccessListener(
+                            new OnSuccessListener<String>() {
+                                @Override
+                                public void onSuccess(String translatedtext) {
+                                   messageTranslation = translatedtext;
+                                }
+                            })
+
+                    .addOnFailureListener(
+                            new OnFailureListener() {
+                                @Override
+                                public void onFailure(@NonNull Exception e) {
+                                }
+                            });
+        }
+
+    public void downloadTranslatorAndTranslate(final String message, String langCode) {
+        // get source language id from bcp code
+
+        int sourceLanguage = FirebaseTranslateLanguage.languageForLanguageCode(langCode);
+        //int sourceLanguage = 0;
+        int targetLanguage = 0;
+
+        if (userLanguage.equals("Spanish")){
+            //sourceLanguage = FirebaseTranslateLanguage.ES;
+            targetLanguage = FirebaseTranslateLanguage.EN;
+
+        } else if (userLanguage.equals("English")) {
+            //sourceLanguage = FirebaseTranslateLanguage.EN;
+            targetLanguage = FirebaseTranslateLanguage.ES;
+
+        } else if (userLanguage.equals("Korean")) {
+            //sourceLanguage = FirebaseTranslateLanguage.EN;
+            targetLanguage = FirebaseTranslateLanguage.KO;
+
+        } else if (userLanguage.equals("Chinese")) {
+            //sourceLanguage = FirebaseTranslateLanguage.EN;
+            targetLanguage = FirebaseTranslateLanguage.ZH;
+        }
+
+        // create translator for source and target languages
+        FirebaseTranslatorOptions options =
+                new FirebaseTranslatorOptions.Builder()
+                        .setSourceLanguage(sourceLanguage)
+                        .setTargetLanguage(targetLanguage)
+                        .build();
+
+        final FirebaseTranslator langTranslator = FirebaseNaturalLanguage.getInstance().getTranslator(options);
+
+        //download language models if needed
+        FirebaseModelDownloadConditions conditions = new FirebaseModelDownloadConditions.Builder()
+                .requireWifi()
+                .build();
+
+        langTranslator.downloadModelIfNeeded(conditions)
+                .addOnSuccessListener(
+                        new OnSuccessListener<Void>() {
+                            @Override
+                            public void onSuccess(Void v) {
+                                Log.d("translator", "downloaded lang model");
+                                // after making sure language models are available make translation
+                                translateText(message, langTranslator);
+
+                                try {
+                                    sendMessage();
+                                } catch (InterruptedException e) {
+                                    e.printStackTrace();
+                                }
+                            }
+                        })
+                .addOnFailureListener(
+                        new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+                                // error message
+                            }
+                        });
+    }
+
+    public String translateTextToLanguage(final String message){
+        // identifies the language of the messages on the DB
+        FirebaseLanguageIdentification languageIdentifier = FirebaseNaturalLanguage.getInstance().getLanguageIdentification();
+
+        languageIdentifier.identifyLanguage(message)
+                .addOnSuccessListener(
+                        new OnSuccessListener<String>() {
+                            @Override
+                            public void onSuccess(@Nullable String languageCode) {
+                                if (languageCode != "und") {
+                                    Log.d("translator", "lang "+languageCode);
+                                    // download translator for the identified language and translate the entered text
+                                    downloadTranslatorAndTranslate(message, languageCode);
+                                } else {
+                                    // error message: language model not downloaded.
+                                }
+                            }
+                        })
+                .addOnFailureListener(
+                        new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+                                // error message: language not identified.
+                            }
+                        });
+        return message;
+    }
+
+    // sendMessage function
+    private void sendMessage() throws InterruptedException {
+            TimeUnit.SECONDS.sleep(1);
+
+            // fetching data from DB (reference to database)
+            userID = FirebaseAuth.getInstance().getCurrentUser().getUid();
+            referenceDB = FirebaseDatabase.getInstance().getReference().child("user").child(userID);
+
+            Query query = referenceDB;
+            query.addListenerForSingleValueEvent(new ValueEventListener() {
+
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    String username = "";
+                    String language = "";
+
+                    if (dataSnapshot.child("username").getValue() != null)
+                        username = dataSnapshot.child("username").getValue().toString();
+
+                    if (dataSnapshot.child("language").getValue() != null)
+                        language = dataSnapshot.child("language").getValue().toString();
+
+                    if (!messageInput.getText().toString().isEmpty()) {
+                        // database reference - goes into chat and chatId and pushes to create a new message
+                        DatabaseReference newMessageDB = FirebaseDatabase.getInstance().getReference().child("chat").child(chatID).push();
+
+                        // sends message content on activity_chat layout to the database
+                        Map newMessageMap = new HashMap<>();
+                        newMessageMap.put("message", messageInput.getText().toString());
+                        newMessageMap.put("creatorId", FirebaseAuth.getInstance().getUid());
+                        newMessageMap.put("username", username);
+                        newMessageMap.put("language", language);
+                        newMessageMap.put("translation", messageTranslation);
+
+                        newMessageDB.updateChildren(newMessageMap);
+
+                        //clearing the editText field
+                        messageInput.setText(null);
+                    }
+                }
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+                }
+            });
+        }
 
     // displaying messages from the FireBase DB
     private void getChatMessages() {
@@ -127,6 +272,7 @@ public class ChatActivity extends AppCompatActivity {
 
                 if (dataSnapshot.exists()) {
                     String message = "";
+                    String translation = "";
                     String creatorID = "";
                     String username = "";
                     String language = "";
@@ -144,7 +290,10 @@ public class ChatActivity extends AppCompatActivity {
                     if (dataSnapshot.child("language").getValue() != null)
                         language = dataSnapshot.child("language").getValue().toString();
 
-                    MessageObject mMessage = new MessageObject(dataSnapshot.getKey(), creatorID, username, message, language);
+                    if (dataSnapshot.child("translation").getValue() != null)
+                        translation = dataSnapshot.child("translation").getValue().toString();
+
+                    MessageObject mMessage = new MessageObject(dataSnapshot.getKey(), creatorID, username, message, language, translation);
                     messageList.add(mMessage);
 
                     // scrolls down to the last message
