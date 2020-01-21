@@ -31,7 +31,6 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/sender"
         android:background="@drawable/background_left"/>
-<<<<<<< HEAD
 
     <TextView
         android:text="Translation"
