@@ -106,7 +106,6 @@ public class ChatActivity extends AppCompatActivity {
         });
     }
 
-//    private boolean isStarted = false;
     public void translateText(final String message, final FirebaseTranslator langTranslator) {
         // translate source text to language defined by user
         langTranslator.translate(message)
@@ -115,9 +114,6 @@ public class ChatActivity extends AppCompatActivity {
                                 @Override
                                 public void onSuccess(String translatedtext) {
                                    messageTranslation = translatedtext;
-
-
-                                // call database here to update message translation
                                 }
                             })
 
@@ -127,7 +123,6 @@ public class ChatActivity extends AppCompatActivity {
                                 public void onFailure(@NonNull Exception e) {
                                 }
                             });
-//            isStarted = true;
         }
 
     public void downloadTranslatorAndTranslate(final String message, String langCode) {

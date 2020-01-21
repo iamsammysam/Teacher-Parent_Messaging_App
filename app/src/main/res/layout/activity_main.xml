@@ -8,6 +8,7 @@
     tools:context=".MainActivity">
 
     <!--    <Button-->
+<<<<<<< HEAD
 <!--        android:id="@+id/findChat"-->
 <!--        android:layout_width="wrap_content"-->
 <!--        android:layout_height="wrap_content"-->
@@ -18,6 +19,18 @@
 <!--        app:layout_constraintStart_toStartOf="parent"-->
 <!--        app:layout_constraintTop_toBottomOf="@+id/toolbar"-->
 <!--        app:layout_constraintVertical_bias="0.535" />-->
+=======
+    <!--        android:id="@+id/findChat"-->
+    <!--        android:layout_width="wrap_content"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:text="CHAT LIST"-->
+    <!--        app:layout_constraintBottom_toTopOf="@+id/textView3"-->
+    <!--        app:layout_constraintEnd_toEndOf="parent"-->
+    <!--        app:layout_constraintHorizontal_bias="0.742"-->
+    <!--        app:layout_constraintStart_toStartOf="parent"-->
+    <!--        app:layout_constraintTop_toBottomOf="@+id/toolbar"-->
+    <!--        app:layout_constraintVertical_bias="0.535" />-->
+>>>>>>> master
 
     <Button
         android:id="@+id/findUser"
@@ -27,7 +40,12 @@
         app:layout_constraintBottom_toTopOf="@+id/textView3"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
+<<<<<<< HEAD
         app:layout_constraintTop_toBottomOf="@+id/toolbar" />
+=======
+        app:layout_constraintTop_toBottomOf="@+id/toolbar"
+        app:layout_constraintVertical_bias="0.479" />
+>>>>>>> master
 
     <TextView
         android:id="@+id/textView3"
