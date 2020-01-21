@@ -1,23 +1,78 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".MainActivity">
 
-    <com.google.android.material.appbar.AppBarLayout
-        android:id="@+id/appBarLayout2"
+    <!--    <Button-->
+    <!--        android:id="@+id/findChat"-->
+    <!--        android:layout_width="wrap_content"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:text="CHAT LIST"-->
+    <!--        app:layout_constraintBottom_toTopOf="@+id/textView3"-->
+    <!--        app:layout_constraintEnd_toEndOf="parent"-->
+    <!--        app:layout_constraintHorizontal_bias="0.742"-->
+    <!--        app:layout_constraintStart_toStartOf="parent"-->
+    <!--        app:layout_constraintTop_toBottomOf="@+id/toolbar"-->
+    <!--        app:layout_constraintVertical_bias="0.535" />-->
+
+    <Button
+        android:id="@+id/findUser"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="160dp"
+        android:layout_marginLeft="160dp"
+        android:text="FIND USERS"
+        app:layout_constraintBottom_toTopOf="@+id/textView3"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar" />
+
+    <TextView
+        android:id="@+id/textView3"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-    </com.google.android.material.appbar.AppBarLayout>
+        android:layout_height="wrap_content"
+        android:background="@color/colorPrimary"
+        android:padding="8dp"
+        android:text="Chat List"
+        android:textAlignment="center"
+        android:textColor="#ffff"
+        android:textSize="20dp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar"
+        app:layout_constraintVertical_bias="0.231" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id='@+id/chatList'
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.105"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView3"
+        app:layout_constraintVertical_bias="0.09">
+    </androidx.recyclerview.widget.RecyclerView>
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/colorPrimaryDark"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0"
         app:popupTheme="@style/MenuStyle">
 
         <TextView
@@ -25,45 +80,26 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="25dp"
-            android:text="Teacher-Parent Messanger"
+            android:text="Teacher-Parent Messenger"
             android:textColor="#ffff"
             android:textSize="20dp"
             android:textStyle="bold" />
     </androidx.appcompat.widget.Toolbar>
 
-    <Button
-        android:id="@+id/findUser"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="CONTACTS"
-        android:layout_gravity="center_vertical"
-        android:layout_marginTop="15dp"
-        android:layout_marginLeft="10dp"/>
-
-    <Button
-        android:id="@+id/findChat"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_vertical"
-        android:layout_marginLeft="10dp"
-        android:layout_marginTop="15dp"
-        android:text="CHAT LIST" />
-
     <TextView
+        android:id="@+id/textView4"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Chat List"
-        android:textSize="20dp"
+        android:background="@color/colorPrimary"
+        android:padding="8dp"
+        android:textAlignment="center"
+        android:textColor="#ffff"
+        android:textSize="12dp"
         android:textStyle="bold"
-        android:layout_marginTop="40dp"
-        android:layout_marginLeft="15dp"/>
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id='@+id/chatList'
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:layout_marginLeft="15dp">
-    </androidx.recyclerview.widget.RecyclerView>
-
-</LinearLayout>
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0" />
+</androidx.constraintlayout.widget.ConstraintLayout>
