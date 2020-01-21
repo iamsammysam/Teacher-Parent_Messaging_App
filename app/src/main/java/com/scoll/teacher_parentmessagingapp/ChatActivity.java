@@ -50,7 +50,7 @@ public class ChatActivity extends AppCompatActivity {
     ArrayList<MessageObject> messageList;
 
     //ArrayList<MessageObject> translationList;
-    String language;
+    String userLanguage;
     String chatID;
     String userID;
     String messageTranslation;
@@ -95,7 +95,7 @@ public class ChatActivity extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if (dataSnapshot.child("language").getValue() != null)
-                    language = dataSnapshot.child("language").getValue().toString();
+                    userLanguage = dataSnapshot.child("language").getValue().toString();
             }
 
             @Override
@@ -104,7 +104,7 @@ public class ChatActivity extends AppCompatActivity {
         });
     }
 
-    private boolean isStarted = false;
+//    private boolean isStarted = false;
     public void translateText(final String message, final FirebaseTranslator langTranslator) {
         // translate source text to language defined by user
         langTranslator.translate(message)
@@ -122,26 +122,30 @@ public class ChatActivity extends AppCompatActivity {
                                 public void onFailure(@NonNull Exception e) {
                                 }
                             });
-            isStarted = true;
+//            isStarted = true;
         }
 
     public void downloadTranslatorAndTranslate(final String message, String langCode) {
         // get source language id from bcp code
 
-        int sourceLanguage = FirebaseTranslateLanguage.languageForLanguageCode(langCode);
-//        int sourceLanguage = 0;
+        //int sourceLanguage = FirebaseTranslateLanguage.languageForLanguageCode(langCode);
+        int sourceLanguage = 0;
         int targetLanguage = 0;
 
-        if (language.equals("Spanish")){
-//            sourceLanguage = FirebaseTranslateLanguage.EN;
-            targetLanguage = FirebaseTranslateLanguage.ES;
-
-        } else if (language.equals("English")){
-//            sourceLanguage = FirebaseTranslateLanguage.ES;
+        if (userLanguage.equals("Spanish")){
+            sourceLanguage = FirebaseTranslateLanguage.ES;
             targetLanguage = FirebaseTranslateLanguage.EN;
 
-        } else if (language.equals("Korean")){
-//            sourceLanguage = FirebaseTranslateLanguage.EN;
+        } else if (userLanguage.equals("English")) {
+            sourceLanguage = FirebaseTranslateLanguage.EN;
+            targetLanguage = FirebaseTranslateLanguage.ES;
+
+        } else if (userLanguage.equals("Chinese")) {
+            sourceLanguage = FirebaseTranslateLanguage.EN;
+            targetLanguage = FirebaseTranslateLanguage.ZH;
+
+        } else if (userLanguage.equals("Korean")) {
+            sourceLanguage = FirebaseTranslateLanguage.EN;
             targetLanguage = FirebaseTranslateLanguage.KO;
         }
 
@@ -209,7 +213,7 @@ public class ChatActivity extends AppCompatActivity {
 
     // sendMessage function
     private void sendMessage() {
-        if (isStarted) {
+//        if (isStarted) {
             // fetching data from DB (reference to database)
             userID = FirebaseAuth.getInstance().getCurrentUser().getUid();
             referenceDB = FirebaseDatabase.getInstance().getReference().child("user").child(userID);
@@ -251,7 +255,7 @@ public class ChatActivity extends AppCompatActivity {
                 }
             });
         }
-    }
+//    }
 
     // displaying messages from the FireBase DB
     private void getChatMessages() {
