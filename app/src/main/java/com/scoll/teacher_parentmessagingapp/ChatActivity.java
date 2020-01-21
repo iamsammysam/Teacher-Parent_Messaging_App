@@ -38,6 +38,7 @@ import org.w3c.dom.Text;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.TimeUnit;
 
 public class ChatActivity extends AppCompatActivity {
 
@@ -69,11 +70,15 @@ public class ChatActivity extends AppCompatActivity {
         SendBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                languageFromDB();
                 messageInput = findViewById(R.id.messageInput);
                 translateTextToLanguage(messageInput.getText().toString());
 
-                languageFromDB();
-                sendMessage();
+                try {
+                    sendMessage();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
             }
         });
 
@@ -212,8 +217,10 @@ public class ChatActivity extends AppCompatActivity {
     }
 
     // sendMessage function
-    private void sendMessage() {
+    private void sendMessage() throws InterruptedException {
 //        if (isStarted) {
+            TimeUnit.SECONDS.sleep(3);
+
             // fetching data from DB (reference to database)
             userID = FirebaseAuth.getInstance().getCurrentUser().getUid();
             referenceDB = FirebaseDatabase.getInstance().getReference().child("user").child(userID);
