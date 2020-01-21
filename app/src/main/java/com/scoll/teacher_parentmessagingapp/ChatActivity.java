@@ -128,20 +128,20 @@ public class ChatActivity extends AppCompatActivity {
     public void downloadTranslatorAndTranslate(final String message, String langCode) {
         // get source language id from bcp code
 
-        // int sourceLanguage = FirebaseTranslateLanguage.languageForLanguageCode(langCode);
-        int sourceLanguage = 0;
+        int sourceLanguage = FirebaseTranslateLanguage.languageForLanguageCode(langCode);
+//        int sourceLanguage = 0;
         int targetLanguage = 0;
 
         if (language.equals("Spanish")){
-            sourceLanguage = FirebaseTranslateLanguage.EN;
+//            sourceLanguage = FirebaseTranslateLanguage.EN;
             targetLanguage = FirebaseTranslateLanguage.ES;
 
         } else if (language.equals("English")){
-            sourceLanguage = FirebaseTranslateLanguage.ES;
+//            sourceLanguage = FirebaseTranslateLanguage.ES;
             targetLanguage = FirebaseTranslateLanguage.EN;
 
         } else if (language.equals("Korean")){
-            sourceLanguage = FirebaseTranslateLanguage.EN;
+//            sourceLanguage = FirebaseTranslateLanguage.EN;
             targetLanguage = FirebaseTranslateLanguage.KO;
         }
 
