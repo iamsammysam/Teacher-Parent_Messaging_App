@@ -78,7 +78,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if (dataSnapshot.exists()) {
-                    String title = "Chat Mr.Teacher - Mrs.Parent";
+                    String title = "CHAT";
 
                     // loops through the chat ids
                     for (DataSnapshot childSnapshot : dataSnapshot.getChildren()) {
