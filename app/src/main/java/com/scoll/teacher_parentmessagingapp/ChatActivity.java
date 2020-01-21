@@ -70,7 +70,9 @@ public class ChatActivity extends AppCompatActivity {
         SendBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 languageFromDB();
+
                 messageInput = findViewById(R.id.messageInput);
                 translateTextToLanguage(messageInput.getText().toString());
 
@@ -79,6 +81,7 @@ public class ChatActivity extends AppCompatActivity {
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
+
             }
         });
 
@@ -133,25 +136,25 @@ public class ChatActivity extends AppCompatActivity {
     public void downloadTranslatorAndTranslate(final String message, String langCode) {
         // get source language id from bcp code
 
-        //int sourceLanguage = FirebaseTranslateLanguage.languageForLanguageCode(langCode);
-        int sourceLanguage = 0;
+        int sourceLanguage = FirebaseTranslateLanguage.languageForLanguageCode(langCode);
+        //int sourceLanguage = 0;
         int targetLanguage = 0;
 
         if (userLanguage.equals("Spanish")){
-            sourceLanguage = FirebaseTranslateLanguage.ES;
+            //sourceLanguage = FirebaseTranslateLanguage.ES;
             targetLanguage = FirebaseTranslateLanguage.EN;
 
         } else if (userLanguage.equals("English")) {
-            sourceLanguage = FirebaseTranslateLanguage.EN;
+            //sourceLanguage = FirebaseTranslateLanguage.EN;
             targetLanguage = FirebaseTranslateLanguage.ES;
 
-        } else if (userLanguage.equals("Chinese")) {
-            sourceLanguage = FirebaseTranslateLanguage.EN;
-            targetLanguage = FirebaseTranslateLanguage.ZH;
-
         } else if (userLanguage.equals("Korean")) {
-            sourceLanguage = FirebaseTranslateLanguage.EN;
+            //sourceLanguage = FirebaseTranslateLanguage.EN;
             targetLanguage = FirebaseTranslateLanguage.KO;
+
+        } else if (userLanguage.equals("Chinese")) {
+            //sourceLanguage = FirebaseTranslateLanguage.EN;
+            targetLanguage = FirebaseTranslateLanguage.ZH;
         }
 
         // create translator for source and target languages
@@ -219,7 +222,7 @@ public class ChatActivity extends AppCompatActivity {
     // sendMessage function
     private void sendMessage() throws InterruptedException {
 //        if (isStarted) {
-            TimeUnit.SECONDS.sleep(3);
+            TimeUnit.SECONDS.sleep(1);
 
             // fetching data from DB (reference to database)
             userID = FirebaseAuth.getInstance().getCurrentUser().getUid();
