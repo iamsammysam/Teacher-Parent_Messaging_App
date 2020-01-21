@@ -74,14 +74,8 @@ public class ChatActivity extends AppCompatActivity {
                 languageFromDB();
 
                 messageInput = findViewById(R.id.messageInput);
-                translateTextToLanguage(messageInput.getText().toString());
-
-                try {
-                    sendMessage();
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-
+                String message = messageInput.getText().toString();
+                translateTextToLanguage(message);
             }
         });
 
@@ -121,6 +115,9 @@ public class ChatActivity extends AppCompatActivity {
                                 @Override
                                 public void onSuccess(String translatedtext) {
                                    messageTranslation = translatedtext;
+
+
+                                // call database here to update message translation
                                 }
                             })
 
@@ -179,6 +176,12 @@ public class ChatActivity extends AppCompatActivity {
                                 Log.d("translator", "downloaded lang model");
                                 // after making sure language models are available make translation
                                 translateText(message, langTranslator);
+
+                                try {
+                                    sendMessage();
+                                } catch (InterruptedException e) {
+                                    e.printStackTrace();
+                                }
                             }
                         })
                 .addOnFailureListener(
@@ -201,8 +204,7 @@ public class ChatActivity extends AppCompatActivity {
                             public void onSuccess(@Nullable String languageCode) {
                                 if (languageCode != "und") {
                                     Log.d("translator", "lang "+languageCode);
-                                    // download translator for the identified language
-                                    // and translate the entered text into english
+                                    // download translator for the identified language and translate the entered text
                                     downloadTranslatorAndTranslate(message, languageCode);
                                 } else {
                                     // error message: language model not downloaded.
@@ -221,7 +223,6 @@ public class ChatActivity extends AppCompatActivity {
 
     // sendMessage function
     private void sendMessage() throws InterruptedException {
-//        if (isStarted) {
             TimeUnit.SECONDS.sleep(1);
 
             // fetching data from DB (reference to database)
@@ -265,7 +266,6 @@ public class ChatActivity extends AppCompatActivity {
                 }
             });
         }
-//    }
 
     // displaying messages from the FireBase DB
     private void getChatMessages() {
