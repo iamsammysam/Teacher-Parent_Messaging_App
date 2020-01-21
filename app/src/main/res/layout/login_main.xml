@@ -35,16 +35,6 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.324" />
 
-    <!--&lt;!&ndash;    <androidx.appcompat.widget.AppCompatImageView&ndash;&gt;-->
-    <!--        android:id="@+id/profileImage"-->
-    <!--        android:layout_width="100dp"-->
-    <!--        android:layout_height="100dp"-->
-    <!--        android:src="@drawable/gradhat"-->
-    <!--        app:layout_constraintBottom_toTopOf="@+id/textView4"-->
-    <!--        app:layout_constraintEnd_toEndOf="parent"-->
-    <!--        app:layout_constraintStart_toStartOf="parent"-->
-    <!--        app:layout_constraintTop_toBottomOf="@+id/sendCode" />-->
-
     <EditText
         android:id="@+id/username"
         android:layout_width="wrap_content"
