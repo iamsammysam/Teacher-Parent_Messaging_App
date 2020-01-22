@@ -67,9 +67,9 @@ public class ChatsFragment extends Fragment {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if (dataSnapshot.exists()) {
-                    String title = "Chat between Teacher and Parent";
+                    String title = "Chat";
 
-                            // loops through the chat ids
+                    // loops through the chat ids
                     for (DataSnapshot childSnapshot : dataSnapshot.getChildren()){
 
                         // creating a chatObject

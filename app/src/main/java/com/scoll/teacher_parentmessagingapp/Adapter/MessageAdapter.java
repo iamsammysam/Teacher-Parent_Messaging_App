@@ -2,33 +2,17 @@
 
 package com.scoll.teacher_parentmessagingapp.Adapter;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.EditText;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.Query;
-import com.google.firebase.database.ValueEventListener;
-import com.google.firebase.ml.naturallanguage.languageid.FirebaseLanguageIdentification;
-import com.google.firebase.ml.naturallanguage.translate.FirebaseTranslator;
-import com.google.firebase.ml.common.modeldownload.FirebaseModelDownloadConditions;
-import com.google.firebase.ml.naturallanguage.FirebaseNaturalLanguage;
-import com.google.firebase.ml.naturallanguage.translate.FirebaseTranslateLanguage;
-import com.google.firebase.ml.naturallanguage.translate.FirebaseTranslatorOptions;
 import com.scoll.teacher_parentmessagingapp.Model.MessageObject;
 import com.scoll.teacher_parentmessagingapp.R;
 
