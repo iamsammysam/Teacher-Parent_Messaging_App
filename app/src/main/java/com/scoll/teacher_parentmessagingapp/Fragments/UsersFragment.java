@@ -23,9 +23,7 @@ import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.scoll.teacher_parentmessagingapp.Adapter.UserListAdapter;
 import com.scoll.teacher_parentmessagingapp.Model.UserObject;
-
 import java.util.ArrayList;
-
 import com.scoll.teacher_parentmessagingapp.R;
 
 public class UsersFragment extends Fragment {
@@ -50,13 +48,14 @@ public class UsersFragment extends Fragment {
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
-        mUserListAdapter = new UserListAdapter(getContext(), userList);
-
         // initializing contactList (fetches the contacts)
         contactList = new ArrayList<>();
 
         // initializing userList (fetches the contacts that are users (on the DB))
         userList = new ArrayList<>();
+
+        mUserListAdapter = new UserListAdapter(getContext(), userList);
+        recyclerView.setAdapter(mUserListAdapter);
 
         // calling the function contactList
         getContactList();
@@ -121,8 +120,6 @@ public class UsersFragment extends Fragment {
 
                         // updates mUserListAdapter and notifies that something changed
                         mUserListAdapter.notifyDataSetChanged();
-
-                        recyclerView.setAdapter(mUserListAdapter);
                         return;
                     }
                 }
