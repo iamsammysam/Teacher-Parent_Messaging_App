@@ -6,6 +6,8 @@ public class UserObject {
     private String phoneNumber;
     private String userLanguage;
 
+    public UserObject() {}
+
     // constructor for the userObject
     public UserObject(String uid, String username, String phoneNumber, String userLanguage){
         this.uid = uid;
