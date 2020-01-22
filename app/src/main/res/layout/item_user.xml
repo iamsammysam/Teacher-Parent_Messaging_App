@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:padding="10dp"
-    android:id="@+id/itemLayoutUser">
+    android:id="@+id/itemLayout">
 
     <ImageView
         android:layout_width="50dp"
@@ -15,19 +15,24 @@
         android:id="@+id/username"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_below="@id/profileImage"
+        android:layout_centerVertical="true"
+        android:layout_marginStart="15dp"
         android:layout_marginLeft="15dp"
-        android:layout_marginTop="15dp"
+        android:layout_marginTop="-51dp"
+        android:layout_toEndOf="@id/profileImage"
         android:layout_toRightOf="@id/profileImage"
         android:text="Contact Name"
-        android:textSize="16dp" />
+        android:textSize="18dp" />
 
     <TextView
-        android:id="@+id/phoneNumber"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="15dp"
-        android:layout_marginLeft="15dp"
-        android:layout_toRightOf="@id/profileImage"
-        android:text="Phone Number"
-        android:textSize="16dp" />
-</LinearLayout>
+            android:text="Phone Number"
+            android:id="@+id/phoneNumber"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@id/profileImage"
+            android:layout_marginLeft="15dp"
+            android:layout_below="@id/username"
+            android:layout_centerVertical="true"
+            android:textSize="18dp"/>
+</RelativeLayout>
