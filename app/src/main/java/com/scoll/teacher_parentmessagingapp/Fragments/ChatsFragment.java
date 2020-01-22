@@ -64,15 +64,15 @@ public class ChatsFragment extends Fragment {
         referenceDB = FirebaseDatabase.getInstance().getReference().child("user").child(FirebaseAuth.getInstance().getUid()).child("chat");
         referenceDB.addValueEventListener(new ValueEventListener() {
             @Override
-                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                        if (dataSnapshot.exists()) {
-                            String title = "Chat between Teacher and Parent";
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if (dataSnapshot.exists()) {
+                    String title = "Chat between Teacher and Parent";
 
                             // loops through the chat ids
                     for (DataSnapshot childSnapshot : dataSnapshot.getChildren()){
 
                         // creating a chatObject
-                        ChatObject mChat = new ChatObject(childSnapshot.getKey());
+                        ChatObject mChat = new ChatObject(childSnapshot.getKey(), title);
                         chatList.add(mChat);
 
                         // updates mChatListAdapter and notifies that something changed

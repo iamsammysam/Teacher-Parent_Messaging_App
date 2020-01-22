@@ -6,12 +6,12 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -40,7 +40,10 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
+
 public class ChatActivity extends AppCompatActivity {
+
+
 
     // variables
     private RecyclerView Chat;
@@ -49,8 +52,8 @@ public class ChatActivity extends AppCompatActivity {
 
     DatabaseReference referenceDB;
     ArrayList<MessageObject> messageList;
+    ArrayList<UserObject> userList;
 
-    //ArrayList<MessageObject> translationList;
     String userLanguage;
     String chatID;
     String userID;
@@ -64,6 +67,7 @@ public class ChatActivity extends AppCompatActivity {
 
         // initializing chatID
         chatID = getIntent().getExtras().getString("chatID");
+        userList = new ArrayList<>();
 
         // initialing the sendBtn message button
         Button SendBtn = findViewById(R.id.sendBtn);
