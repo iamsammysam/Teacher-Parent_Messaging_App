@@ -64,7 +64,9 @@ public class UserListAdapter extends RecyclerView.Adapter<UserListAdapter.ViewHo
     }
 
     @Override
-    public int getItemCount() { return (userList == null) ? 0 : userList.size(); }
+    public int getItemCount() {
+        return userList.size();
+    }
 
     public class ViewHolder extends RecyclerView.ViewHolder{
         public TextView mUsername, mPhoneNumber;
