@@ -1,7 +1,5 @@
 // main page activity
 
-// main page activity
-
 package com.scoll.teacher_parentmessagingapp;
 
 import androidx.annotation.NonNull;

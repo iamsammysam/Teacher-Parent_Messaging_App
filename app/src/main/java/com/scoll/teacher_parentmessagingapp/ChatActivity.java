@@ -6,7 +6,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -33,8 +32,6 @@ import com.scoll.teacher_parentmessagingapp.Adapter.MessageAdapter;
 import com.scoll.teacher_parentmessagingapp.Model.MessageObject;
 import com.scoll.teacher_parentmessagingapp.Model.UserObject;
 
-import org.w3c.dom.Text;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -42,8 +39,6 @@ import java.util.concurrent.TimeUnit;
 
 
 public class ChatActivity extends AppCompatActivity {
-
-
 
     // variables
     private RecyclerView Chat;
