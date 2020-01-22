@@ -3,9 +3,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#DDDADA">
+    android:background="#F3F2F2">
 
     <androidx.recyclerview.widget.RecyclerView
+        android:paddingTop="20dp"
         android:id='@+id/userList'
         android:scrollbars="vertical"
         android:layout_width="match_parent"

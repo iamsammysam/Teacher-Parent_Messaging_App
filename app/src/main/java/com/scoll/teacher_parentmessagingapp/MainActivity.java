@@ -35,14 +35,7 @@ import com.scoll.teacher_parentmessagingapp.Model.ChatObject;
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
-
-    // recyclerView variables
-    private RecyclerView mChatList;
-    private RecyclerView.Adapter mChatListAdapter;
-    private RecyclerView.LayoutManager mChatListLayoutManager;
-
     TextView username;
-    TextView phoneNumber;
     ArrayList<ChatObject> chatList;
     DatabaseReference referenceDB;
     DatabaseReference referenceUserDB;
@@ -77,28 +70,6 @@ public class MainActivity extends AppCompatActivity {
 
         getPermissions();
     }
-
-//    private void getUserChatList(){
-//        // listener
-//        referenceDB.addValueEventListener(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-//                if(dataSnapshot.exists()){
-//                    // loops through the chat ids
-//                    for (DataSnapshot childSnapshot : dataSnapshot.getChildren()){
-//                        // creating a chatObject
-//                        ChatObject mChat = new ChatObject(childSnapshot.getKey());
-//                        chatList.add(mChat);
-//                        // updates mChatListAdapter and notifies that something changed
-//                        mChatListAdapter.notifyDataSetChanged();
-//                    }
-//                }
-//            }
-//
-//            @Override
-//            public void onCancelled(@NonNull DatabaseError databaseError) { }
-//        });
-//    }
 
     //function to initialize menu.xml
     @Override

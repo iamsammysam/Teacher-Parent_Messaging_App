@@ -5,7 +5,7 @@ public class ChatObject {
     private String title;
 
     // constructor for the chatObject
-    public ChatObject(String chatId, String title){
+    public ChatObject(String chatId){
         this.chatId = chatId;
         this.title = title;
     }
