@@ -17,22 +17,23 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/profileImage"
         android:layout_centerVertical="true"
-        android:layout_marginStart="15dp"
-        android:layout_marginLeft="15dp"
-        android:layout_marginTop="-51dp"
+        android:layout_marginStart="14dp"
+        android:layout_marginLeft="14dp"
+        android:layout_marginTop="-47dp"
         android:layout_toEndOf="@id/profileImage"
         android:layout_toRightOf="@id/profileImage"
         android:text="Contact Name"
-        android:textSize="18dp" />
+        android:textSize="16dp" />
 
     <TextView
-            android:text="Phone Number"
-            android:id="@+id/phoneNumber"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_toRightOf="@id/profileImage"
-            android:layout_marginLeft="15dp"
-            android:layout_below="@id/username"
-            android:layout_centerVertical="true"
-            android:textSize="18dp"/>
+        android:id="@+id/phoneNumber"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/username"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="14dp"
+        android:layout_marginTop="0dp"
+        android:layout_toRightOf="@id/profileImage"
+        android:text="Phone Number"
+        android:textSize="16dp" />
 </RelativeLayout>
