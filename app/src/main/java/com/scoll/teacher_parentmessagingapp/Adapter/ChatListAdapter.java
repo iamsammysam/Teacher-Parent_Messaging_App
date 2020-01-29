@@ -2,6 +2,7 @@
 
 package com.scoll.teacher_parentmessagingapp.Adapter;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -33,7 +34,7 @@ public class ChatListAdapter extends RecyclerView.Adapter<ChatListAdapter.ChatLi
     private ArrayList<ChatObject> chatList;
 
     // constructor
-    public ChatListAdapter(ArrayList<ChatObject> chatList){
+    public ChatListAdapter(Context context, ArrayList<ChatObject> chatList){
         this.chatList = chatList;
     }
 

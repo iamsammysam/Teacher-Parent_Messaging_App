@@ -6,20 +6,23 @@
     android:id="@+id/itemLayout">
 
 <ImageView
+    android:layout_marginTop="15dp"
+    android:layout_marginBottom="15dp"
+    android:layout_marginLeft="15dp"
     android:layout_width="50dp"
     android:layout_height="50dp"
     android:id="@+id/profileImage"
-    android:src="@drawable/gradhat"/>
+    android:src="@drawable/ic_chat_black_24dp"/>
 
 <TextView
     android:id="@+id/title"
-    android:text="Mr.Teacher - Mrs.Parent"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:paddingRight="50dp"
+    android:textSize="18dp"
+    android:text="Chat Teacher - Parent"
+    android:textColor="#444242"
     android:layout_marginLeft="15dp"
-    android:layout_marginTop="15dp"
-    android:layout_toRightOf="@id/profileImage"
-    android:textSize="16dp" />
-
+    android:layout_marginTop="25dp"
+    android:layout_toRightOf="@id/profileImage" />
 </LinearLayout>

@@ -31,8 +31,6 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
-// refactoring!!! ask for username on the login!!!
-
 public class LoginActivity extends AppCompatActivity {
 
     private EditText phoneNumber;
