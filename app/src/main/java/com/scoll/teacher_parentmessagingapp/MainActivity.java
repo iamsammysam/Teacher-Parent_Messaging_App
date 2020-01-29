@@ -67,8 +67,8 @@ public class MainActivity extends AppCompatActivity {
         tabLayout.setupWithViewPager(viewPager);
 
         getPermissions();
-    }
-
+    }      
+      
     //function to initialize menu.xml
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

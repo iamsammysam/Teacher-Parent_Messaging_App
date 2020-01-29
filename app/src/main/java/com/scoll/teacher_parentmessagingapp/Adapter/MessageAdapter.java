@@ -33,8 +33,7 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageL
 
     // constructor
     public MessageAdapter(ArrayList<MessageObject> messageList) {
-        this.messageList = messageList;
-    }
+        this.messageList = messageList; }
 
     @NonNull
     @Override
