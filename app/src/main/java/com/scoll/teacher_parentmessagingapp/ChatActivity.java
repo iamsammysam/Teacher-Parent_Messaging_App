@@ -7,6 +7,9 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
+import android.os.SystemClock;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -39,47 +42,63 @@ import java.util.concurrent.TimeUnit;
 
 
 public class ChatActivity extends AppCompatActivity {
-
-    // variables
+   // recyclerView variables
     private RecyclerView Chat;
     private RecyclerView.Adapter ChatAdapter;
     private RecyclerView.LayoutManager ChatLayoutManager;
 
-    DatabaseReference referenceDB;
-    ArrayList<MessageObject> messageList;
-    ArrayList<UserObject> userList;
+    private long lastClickTime = 0;
 
+    // variables
     String userLanguage;
     String chatID;
     String userID;
     String messageTranslation;
     EditText messageInput;
+    Button SendBtn;
+
+    DatabaseReference referenceDB;
+    ArrayList<MessageObject> messageList;
+    ArrayList<UserObject> userList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chat);
 
-        // initializing chatID
+        // initializing chatId and other variables
         chatID = getIntent().getExtras().getString("chatID");
+        messageList = new ArrayList<>();
         userList = new ArrayList<>();
 
-        // initialing the sendBtn message button
-        Button SendBtn = findViewById(R.id.sendBtn);
+        // initialing sendBtn message button and messageInput
+        SendBtn = findViewById(R.id.sendBtn);
+        messageInput = findViewById(R.id.messageInput);
+
+        // adding text watcher to check if messageInput is empty
+        messageInput.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                String textInput = messageInput.getText().toString().trim();
+
+                // enables or disables messageInput if true or false
+                SendBtn.setEnabled(!textInput.isEmpty());
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) { }
+        });
+
         SendBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 languageFromDB();
-
-                messageInput = findViewById(R.id.messageInput);
-                String message = messageInput.getText().toString();
-                translateTextToLanguage(message);
+                translateTextToLanguage(messageInput.getText().toString());
             }
         });
-
-        // initializing messageList
-        messageList = new ArrayList<>();
 
         // calling the functions
         initializeRecyclerView();
@@ -105,7 +124,6 @@ public class ChatActivity extends AppCompatActivity {
         });
     }
 
-//    private boolean isStarted = false;
     public void translateText(final String message, final FirebaseTranslator langTranslator) {
         // translate source text to language defined by user
         langTranslator.translate(message)
@@ -114,9 +132,6 @@ public class ChatActivity extends AppCompatActivity {
                                 @Override
                                 public void onSuccess(String translatedtext) {
                                    messageTranslation = translatedtext;
-
-
-                                // call database here to update message translation
                                 }
                             })
 
@@ -126,7 +141,6 @@ public class ChatActivity extends AppCompatActivity {
                                 public void onFailure(@NonNull Exception e) {
                                 }
                             });
-//            isStarted = true;
         }
 
     public void downloadTranslatorAndTranslate(final String message, String langCode) {
@@ -220,9 +234,7 @@ public class ChatActivity extends AppCompatActivity {
         return message;
     }
 
-    // sendMessage function
     private void sendMessage() throws InterruptedException {
-            TimeUnit.SECONDS.sleep(1);
 
             // fetching data from DB (reference to database)
             userID = FirebaseAuth.getInstance().getCurrentUser().getUid();
