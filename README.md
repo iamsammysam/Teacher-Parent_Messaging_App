@@ -34,3 +34,7 @@ The idea of creating a Teacher/Parent Communication App came to reach effectivel
 - Google Firebase (backend)
 - Google Firebase Translation Machine Learning API
 - Google Firebase Machine Learning language identification API
+
+### App image
+
+![messaging_app](https://user-images.githubusercontent.com/51973947/80778324-df4e0980-8b1c-11ea-8ecf-be6f36e666e9.jpg)
