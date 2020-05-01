@@ -10,26 +10,27 @@ The idea of creating a Teacher/Parent Communication App came to reach effectivel
 ### MVP Feature Set
 
 1.  Instant messaging feature
-    - User authorization via phone number.
+    - User authentication via phone number.
     - Provides identification of contact list numbers that are also app users.
-    - Provides option for private and group chats.
-    - All messages show a “message status” (delivered/failed/seen/edited).
+    - Provides option for private chats.
     - Chat histories sent by users are stored so they can be accessed anytime.
     
 2.  Message instant translation
-    - “Translate button” option that will show instantly the translated message on the app.
+    -  Instantly shows the translated message together with original message on the app.
     -  Two way translation: focus on English/Spanish/English translation feature.
     -  Other languages availability is under evaluation focusing on school demand and app flexibility.
 
 ### Potential Additional Features
 
 1.  Profile customization.
-2.  Media file transmission.
-3.  Voice Messaging with translation.
+2.  Message status (delivered/failed/seen/edited).
+3.  Media file transmission.
+4.  Voice Messaging with translation.
 
 ### Technology Choices
 
 - Android Studio
 - Java (frontend)
-- Firebase (backend)
-- Google Translate API
+- Google Firebase (backend)
+- Google Firebase Translation Machine Learning API
+- Google Firebase Machine Learning language identification API
